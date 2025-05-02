@@ -1,4 +1,7 @@
 package ZCWDelta.ZipTube.repos;
 
-public class CommentRepo {
+import ZCWDelta.ZipTube.models.Comment;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CommentRepo extends JpaRepository<Comment, Integer> {
 }
