@@ -9,7 +9,7 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Integer Id;
+    private Integer id;
 
     @Column(name = "text")
     private String text;
@@ -32,18 +32,18 @@ public class Comment {
 
     //For testing purposes
     public Comment(Integer id, String text, Integer userId, Integer videoId) {
-        this.Id = id;
+        this.id = id;
         this.text = text;
         this.userId = userId;
         this.videoId = videoId;
     }
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getText() {
