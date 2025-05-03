@@ -1,16 +1,50 @@
 package ZCWDelta.ZipTube.services;
 
+import ZCWDelta.ZipTube.exceptions.UserNoteFoundException;
 import ZCWDelta.ZipTube.models.User;
 import ZCWDelta.ZipTube.repos.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class UserService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     public User createUser(User user) {
         // Logic to create a new user
         // This might involve saving the user to a database
         //return userRepository.save(user);
        return null; //I put this here to be able to push
+        return userRepository.save(user);
     }
+
+    public List<User> getAllUsers() {
+        return(List<User>) userRepository.findAll();
+    }
+
+    public Optional<User> findById(Integer id) {
+        return userRepository.findById(id);
+    }
+
+    public user updateUser(Integer id, User userDetails) throws UserNotFoundException {
+        User existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+
+        existingUser.setUsername(userDetails.getUsername());
+        existingUser.setEmail(userDetails.getEmail());
+
+        return userRepository.save(existingUser);
+    }
+
+    public void deleteUser(Integer id) throws UserNotFoundException {
+        if (!userRepository.existsById(id)) {
+            throw new UserNotFoundException("User not found with id: " + id);
+        }
+        userRepository.deleteById(id);
 }
