@@ -52,5 +52,20 @@ public class CommentService {
         return repo.save(comment);
     }
 
+    public Boolean delete(Integer id) {
+        repo.deleteById(id);
+        return true;
+    }
 
+    public Boolean deleteByUser(Integer userId) {
+        Iterable<Comment> comments = findByUserId(userId);
+        repo.deleteAll(comments);
+        return true;
+    }
+
+    public Boolean deleteByVideo(Integer videoId) {
+        Iterable<Comment> comments = findByVideoId(videoId);
+        repo.deleteAll(comments);
+        return true;
+    }
 }
