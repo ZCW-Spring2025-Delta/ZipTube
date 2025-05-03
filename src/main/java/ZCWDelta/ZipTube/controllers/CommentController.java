@@ -64,5 +64,11 @@ public class CommentController {
         return new ResponseEntity<Iterable<Comment>>(byUsers, HttpStatus.OK);
     }
 
+    @PostMapping
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Comment> writeComment(@RequestBody Comment comment) {
+        return new ResponseEntity<Comment>(service.create(comment), HttpStatus.CREATED);
+    }
 
 }

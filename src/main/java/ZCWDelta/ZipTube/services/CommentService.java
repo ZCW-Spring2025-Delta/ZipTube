@@ -47,4 +47,10 @@ public class CommentService {
         }
         return comments;
     }
+
+    public Comment create(Comment comment) {
+        return repo.save(comment);
+    }
+
+
 }
