@@ -26,25 +26,25 @@ public class VideoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Video> getVideoById(Integer Id){
+    public ResponseEntity<Video> getVideoById(@PathVariable Integer Id){
         Video video = videoService.showById(Id);
         return new ResponseEntity<>(video, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Video> create(Video video){
+    public ResponseEntity<Video> create(@RequestBody Video video){
         Video newVideo = videoService.create(video);
         return new ResponseEntity<>(video, HttpStatus.CREATED);
     }
 
     @PutMapping
-    public ResponseEntity<Video> update(Video video){
+    public ResponseEntity<Video> update(@RequestBody Video video){
         Video newVideo = videoService.update(video.getVideoId(), video);
         return new ResponseEntity<>(newVideo, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(Video video){
+    public ResponseEntity<?> delete(@RequestBody Video video){
         videoService.delete(video);
         return new ResponseEntity<>(HttpStatus.OK);
     }
