@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping
+@RequestMapping("/user")
 public class UserController {
     // This class will handle user-related requests
     // For example, user registration, login, profile management, etc.
@@ -21,31 +21,31 @@ public class UserController {
     //     return userService.registerUser(user);
     // }
 
+    @Autowired
     private UserService userService;
 
-    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-    @PostMapping("/user")
+    @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
         return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
     }
 
-    @GetMapping("/user")
+    @GetMapping
     public ResponseEntity<Iterable <User>> getAllUsers() {
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Integer id) {
         return userService.findById(id)
                 .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
     }
 
-    @PutMapping("/user/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Integer id, @RequestBody User user) {
         try {
             User updatedUser = userService.updateUser(id, user);
@@ -55,7 +55,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
         try {
             userService.deleteUser(id);
