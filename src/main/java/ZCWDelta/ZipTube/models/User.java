@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -35,13 +36,13 @@ public class User {
     private Integer commentId;
 
     @Column(name = "user_library_id")
-    private String userLibraryId;
+    private Integer userLibraryId;
 
     public User(){
         //default constructor
     }
 
-    public User (Integer id, String username, String firstName, String lastName, String email, String password, String favorites, String upload, Integer commentId, String userLibraryId) {
+    public User (Integer id, String username, String firstName, String lastName, String email, String password, String favorites, String upload, Integer commentId, Integer userLibraryId) {
         this.id = id;
         this.username = username;
         this.firstName = firstName;
@@ -120,11 +121,11 @@ public class User {
         this.commentId = commentId;
     }
 
-    public String getUserLibraryId() {
+    public Integer getUserLibraryId() {
         return userLibraryId;
     }
 
-    public void setUserLibraryId(String userLibraryId) {
+    public void setUserLibraryId(Integer userLibraryId) {
         this.userLibraryId = userLibraryId;
     }
 }
