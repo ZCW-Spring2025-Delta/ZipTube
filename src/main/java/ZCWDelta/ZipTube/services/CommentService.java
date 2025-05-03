@@ -38,5 +38,34 @@ public class CommentService {
         return comments;
     }
 
+    public Iterable<Comment> findByUserId(Integer userId) {
+        ArrayList<Comment> comments = new ArrayList<>();
+        for (Comment comment : repo.findAll()) {
+            if (comment.getVideoId() == userId) {
+                comments.add(comment);
+            }
+        }
+        return comments;
+    }
 
+    public Comment create(Comment comment) {
+        return repo.save(comment);
+    }
+
+    public Boolean delete(Integer id) {
+        repo.deleteById(id);
+        return true;
+    }
+
+    public Boolean deleteByUser(Integer userId) {
+        Iterable<Comment> comments = findByUserId(userId);
+        repo.deleteAll(comments);
+        return true;
+    }
+
+    public Boolean deleteByVideo(Integer videoId) {
+        Iterable<Comment> comments = findByVideoId(videoId);
+        repo.deleteAll(comments);
+        return true;
+    }
 }
