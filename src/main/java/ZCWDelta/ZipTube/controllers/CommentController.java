@@ -3,9 +3,9 @@ package ZCWDelta.ZipTube.controllers;
 import ZCWDelta.ZipTube.models.Comment;
 import ZCWDelta.ZipTube.services.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -20,19 +20,49 @@ public class CommentController {
         this.service = service;
     }
 
+    @GetMapping("/all")
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Iterable<Comment>> getAllComments() {
+        Iterable<Comment> comments = service.getAllComments();
+        if (comments == null) {
+            return new ResponseEntity<Iterable<Comment>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<Iterable<Comment>>(comments, HttpStatus.OK);
+    }
+
     @GetMapping("/video/{videoId}")
-    public Iterable<Comment> getByVideo(Integer videoId) {
-        return service.findByVideoId(videoId);
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Iterable<Comment>> getByVideo(Integer videoId) {
+        Iterable<Comment> comments = service.findByVideoId(videoId);
+        if (comments == null) {
+            return new ResponseEntity<Iterable<Comment>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<Iterable<Comment>>(comments, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public Comment getComment(Integer id) {
-        return service.show(id);
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Comment> getComment(Integer id) {
+        Comment comment = service.show(id);
+        if (comment == null) {
+            return new ResponseEntity<Comment>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Comment>(service.show(id), HttpStatus.OK);
     }
 
-    @GetMapping("/{userId}")
-    public Iterable<Comment> getByUser(Integer userId) {
-        return null;
+    @GetMapping("/user/{userId}")
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Iterable<Comment>> getByUser(Integer userId) {
+        Iterable<Comment> byUsers = service.findByUserId(userId);
+        if (byUsers == null) {
+            return new ResponseEntity<Iterable<Comment>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<Iterable<Comment>>(byUsers, HttpStatus.OK);
     }
+
 
 }

@@ -38,5 +38,13 @@ public class CommentService {
         return comments;
     }
 
-
+    public Iterable<Comment> findByUserId(Integer userId) {
+        ArrayList<Comment> comments = new ArrayList<>();
+        for (Comment comment : repo.findAll()) {
+            if (comment.getVideoId() == userId) {
+                comments.add(comment);
+            }
+        }
+        return comments;
+    }
 }
