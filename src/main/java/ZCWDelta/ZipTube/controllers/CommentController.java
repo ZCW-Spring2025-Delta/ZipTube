@@ -21,7 +21,6 @@ public class CommentController {
     }
 
     @GetMapping("/all")
-    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Iterable<Comment>> getAllComments() {
         Iterable<Comment> comments = service.getAllComments();
@@ -32,9 +31,8 @@ public class CommentController {
     }
 
     @GetMapping("/video/{videoId}")
-    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Iterable<Comment>> getByVideo(Integer videoId) {
+    public ResponseEntity<Iterable<Comment>> getByVideo(@PathVariable("videoId") Integer videoId) {
         Iterable<Comment> comments = service.findByVideoId(videoId);
         if (comments == null) {
             return new ResponseEntity<Iterable<Comment>>(HttpStatus.NO_CONTENT);
@@ -43,9 +41,8 @@ public class CommentController {
     }
 
     @GetMapping("/{id}")
-    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Comment> getComment(Integer id) {
+    public ResponseEntity<Comment> getComment(@PathVariable("id") Integer id) {
         Comment comment = service.show(id);
         if (comment == null) {
             return new ResponseEntity<Comment>(HttpStatus.NOT_FOUND);
@@ -56,7 +53,7 @@ public class CommentController {
     @GetMapping("/user/{userId}")
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Iterable<Comment>> getByUser(Integer userId) {
+    public ResponseEntity<Iterable<Comment>> getByUser(@PathVariable("userId") Integer userId) {
         Iterable<Comment> byUsers = service.findByUserId(userId);
         if (byUsers == null) {
             return new ResponseEntity<Iterable<Comment>>(HttpStatus.NO_CONTENT);
@@ -65,28 +62,24 @@ public class CommentController {
     }
 
     @PostMapping
-    @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Comment> writeComment(@RequestBody Comment comment) {
         return new ResponseEntity<Comment>(service.create(comment), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Boolean> deleteComment(@PathVariable("id") Integer id) {
         return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
     }
 
     @DeleteMapping("/video/{videoId}")
-    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Boolean> deleteByVideo(@PathVariable("videoId") Integer videoId) {
         return new ResponseEntity<>(service.deleteByVideo(videoId), HttpStatus.OK);
     }
 
     @DeleteMapping("/user/{userId}")
-    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Boolean> deleteByUser(@PathVariable("userId") Integer userId) {
         return new ResponseEntity<>(service.deleteByUser(userId), HttpStatus.OK);
