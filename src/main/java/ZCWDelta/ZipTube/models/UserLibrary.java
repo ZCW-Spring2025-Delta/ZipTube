@@ -2,6 +2,8 @@ package ZCWDelta.ZipTube.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "user_library")
 public class UserLibrary {
@@ -12,10 +14,10 @@ public class UserLibrary {
     private Integer Id;
 
     @Column(name = "favorites")
-    private String favorites;
+    private List<String> favorites;
 
-    @Column(name = "upload")
-    private String upload;
+    @Column(name = "uploads")
+    private List<String> uploads;
 
     @Column(name = "User_id")
     private Integer UserId;
@@ -27,10 +29,10 @@ public class UserLibrary {
         //default constructor
     }
 
-    public UserLibrary (Integer id, String favorites, String upload, Integer userId, Integer videoId) {
+    public UserLibrary (Integer id, List<String> favorites, List<String> uploads, Integer userId, Integer videoId) {
             this.Id = id;
             this.favorites = favorites;
-            this.upload = upload;
+            this.uploads = uploads;
             this.UserId = userId;
             this.VideoId = videoId;
         }
@@ -43,20 +45,20 @@ public class UserLibrary {
         Id = id;
     }
 
-    public String getFavorites() {
+    public List<String> getFavorites() {
         return favorites;
     }
 
-    public void setFavorites(String favorites) {
+    public void setFavorites(List<String> favorites) {
         this.favorites = favorites;
     }
 
-    public String getUpload() {
-        return upload;
+    public List<String> getUploads() {
+        return uploads;
     }
 
-    public void setUpload(String upload) {
-        this.upload = upload;
+    public void setUpload(List<String> uploads) {
+        this.uploads = uploads;
     }
 
     public Integer getUserId() {
