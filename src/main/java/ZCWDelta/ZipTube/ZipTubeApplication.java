@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @SpringBootApplication
-//@EntityScan("ZCWDelta.ZipTube.models")
 public class ZipTubeApplication {
 
 	public static void main(String[] args) {

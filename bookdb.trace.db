@@ -1,0 +1,12 @@
+2025-05-03 22:48:59.694230-04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "create global temporary table HTE_videos(comment_id integer, favorite boolean, id integer, rn_ integer not null, user_library_id integer, [*]year integer, query varchar(255), url varchar(255), video_name varchar(255), primary key (rn_)) TRANSACTIONAL"; expected "identifier"; SQL statement:
+create global temporary table HTE_videos(comment_id integer, favorite boolean, id integer, rn_ integer not null, user_library_id integer, year integer, query varchar(255), url varchar(255), video_name varchar(255), primary key (rn_)) TRANSACTIONAL [42001-232]
+2025-05-03 22:48:59.760556-04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "create table videos (id integer not null, url varchar(255), comment_id integer, favorite boolean, query varchar(255), user_library_id integer, video_name varchar(255), [*]year integer, primary key (id))"; expected "identifier"; SQL statement:
+create table videos (id integer not null, url varchar(255), comment_id integer, favorite boolean, query varchar(255), user_library_id integer, video_name varchar(255), year integer, primary key (id)) [42001-232]
+2025-05-03 23:15:50.459568-04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "create global temporary table HTE_videos(comment_id integer, favorite boolean, id integer, rn_ integer not null, user_library_id integer, [*]year integer, query varchar(255), url varchar(255), video_name varchar(255), primary key (rn_)) TRANSACTIONAL"; expected "identifier"; SQL statement:
+create global temporary table HTE_videos(comment_id integer, favorite boolean, id integer, rn_ integer not null, user_library_id integer, year integer, query varchar(255), url varchar(255), video_name varchar(255), primary key (rn_)) TRANSACTIONAL [42001-232]
+2025-05-03 23:15:50.522713-04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "create table videos (id integer not null, url varchar(255), comment_id integer, favorite boolean, query varchar(255), user_library_id integer, video_name varchar(255), [*]year integer, primary key (id))"; expected "identifier"; SQL statement:
+create table videos (id integer not null, url varchar(255), comment_id integer, favorite boolean, query varchar(255), user_library_id integer, video_name varchar(255), year integer, primary key (id)) [42001-232]
