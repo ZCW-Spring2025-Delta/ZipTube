@@ -44,20 +44,38 @@ public class User {
         //default constructor
     }
 
-    public User (Integer id, String username, String firstName, String lastName, String email, String password, String favorites, String upload, Integer commentId, UserLibrary userLibraryId) {
+    //Constructor for Testing purposes
+    public User (Integer id, String username, String firstName, String lastName, String email, String password, Integer commentId) {
         this.id = id;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.favorites = favorites;
-        this.Upload = upload;
+        this.commentId = commentId;
+    }
+
+    //Current constructor. Subject to change
+    public User (Integer id, String username, String firstName, String lastName, String email, String password, Integer commentId, UserLibrary userLibraryId) {
+        this.id = id;
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+//        this.favorites = favorites;
+//        this.Upload = upload;
         this.commentId = commentId;
         this.userLibraryId = userLibraryId;
     }
 
+    public Integer getId() {
+        return id;
+    }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
