@@ -2,6 +2,7 @@ package ZCWDelta.ZipTube.controllers;
 
 import ZCWDelta.ZipTube.models.Comment;
 import ZCWDelta.ZipTube.repos.CommentRepo;
+import ZCWDelta.ZipTube.services.CommentService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +18,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.Optional;
 
 @SpringBootTest
+@AutoConfigureMockMvc
 public class CommentControllerTest {
 
     @Autowired
@@ -44,28 +46,47 @@ public class CommentControllerTest {
 //
 //    }
 
-//    @Test //postmapping
-//    public void testCreateComment() throws Exception {
-//        Comment comment = new Comment("Comment text", null, null);
-//        BDDMockito
-//                .given(repo.save(comment))
-//                .willReturn(comment);
+//    @Test //get mapping by user id
+//    public void testShowByUser() {
 //
-//        String expectedString = "{\"id\":null,\"text\":Comment text,\"userId\":null,\"videoId\":null}";
-//        this.mockMvc.perform(MockMvcRequestBuilders
-//                .post("/comment/")
-//                .content(expectedString)
-//                .accept(MediaType.APPLICATION_JSON)
-//                .contentType(MediaType.APPLICATION_JSON)
-//            )
-//                .andExpect(MockMvcResultMatchers.status().isCreated())
-//                .andExpect(MockMvcResultMatchers.content().string(expectedString));
 //    }
-    //get mapping by user id
-    //getmapping by video id
 
-    //deletemapping by id
-    //deletemapping by user id
-    //deletemapping by video id
+//    @Test //getmapping by video id
+//    public void testShowByVideo() {
+//
+//    }
+
+    @Test //postmapping
+    public void testCreateComment() throws Exception {
+        Comment comment = new Comment("Comment text", null, null);
+        BDDMockito
+                .given(repo.save(comment))
+                .willReturn(comment);
+
+        String expectedString = "{\"id\":null,\"text\":Comment text,\"userId\":null,\"videoId\":null}";
+        this.mvc.perform(MockMvcRequestBuilders
+                .post("/comment/")
+                .content(expectedString)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+            )
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.content().string(expectedString));
+    }
+
+//    @Test //deletemapping by id
+//    public void testDeleteById() {
+//
+//    }
+
+//    @Test //deletemapping by user id
+//    public void testDeleteByUserId() {
+//
+//    }
+
+//    @Test //deletemapping by video id
+//    public void testDeleteByVideoId() {
+//
+//    }
 
 }
