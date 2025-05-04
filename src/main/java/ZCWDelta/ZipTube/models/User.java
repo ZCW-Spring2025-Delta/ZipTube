@@ -35,7 +35,9 @@ public class User {
     @Column(name = "comment_id")
     private Integer commentId;
 
-    @Column(name = "user_library_id")
+//    @Column(name = "user_library_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userLibrary", referencedColumnName = "id")
     private UserLibrary userLibraryId;
 
     public User(){
@@ -99,19 +101,19 @@ public class User {
 
     public String getFavorites() {
         return favorites;
-    }
+    } //May not need
 
     public void setFavorites(String favorites) {
         this.favorites = favorites;
-    }
+    } //May not need
 
     public String getUpload() {
         return Upload;
-    }
+    } //May not need
 
     public void setUpload(String upload) {
         Upload = upload;
-    }
+    } //May not need
 
     public Integer getCommentId() {
         return commentId;
