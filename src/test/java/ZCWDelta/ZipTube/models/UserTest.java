@@ -2,6 +2,9 @@ package ZCWDelta.ZipTube.models;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UserTest {
@@ -18,7 +21,7 @@ public class UserTest {
     }
 
     @Test
-    void getUsername() {
+    void testUsername() {
         //Given
         String username = "CodeNinja67";
 
@@ -34,7 +37,7 @@ public class UserTest {
     }
 
     @Test
-    void getFirstName() {
+    void testFirstName() {
         //Given
         String firstName = "John";
 
@@ -48,7 +51,7 @@ public class UserTest {
     }
 
     @Test
-    void getLastName() {
+    void testLastName() {
         String lastName = "Doe";
 
         user.setLastName(lastName);
@@ -56,30 +59,68 @@ public class UserTest {
         String actual = user.getLastName();
 
         assertEquals(lastName, actual);
-
     }
 
     @Test
-    void getEmail() {
+    void testEmail() {
+        String testEmail = "codeNinja67@gmail.com";
+
+        user.setEmail(testEmail);
+
+        String expected = testEmail;
+
+        String actual = user.getEmail();
+
+        assertEquals(testEmail, actual);
     }
 
     @Test
-    void getPassword() {
+    void testPassword() {
+        String password = "W9r#zL!8qTm@2Xe";
+
+        user.setPassword(password);
+
+        String expected = password;
+
+        String actual = user.getPassword();
+
+        assertEquals(expected, actual);
+    }
+
+//    @Test
+//    void testFavorites() { //May not need
+//        String favorite1 = "Prometheus";
+//        String favorite2 = "Half Baked";
+//        String favorite3 = "Iron Mike";
+//        ArrayList<String> favoritesList = new ArrayList<>();
+//
+//        user.setFavorites(favorite1);
+//        user.setFavorites(favorite2);
+//        user.setFavorites(favorite3);
+//
+//        favoritesList.add(favorite1);
+//        favoritesList.add(favorite2);
+//        favoritesList.add(favorite3);
+//
+//        ArrayList<String> expected = new ArrayList<>(Arrays.asList("Prometheus", "Half Baked" , "Iron Mike"));
+//        ArrayList<String> actual = user.getFavorites();
+//        assertEquals(expected, user);
+//    }
+
+    @Test
+    void testUpload() {//May not need
     }
 
     @Test
-    void getFavorites() {
-    }
+    void testCommentId() {
+        Integer commentID = 1043827;
 
-    @Test
-    void getUpload() {
-    }
+        user.setCommentId(commentID);
 
-    @Test
-    void getCommentId() {
-    }
+        Integer expected = commentID;
 
-    @Test
-    void getUserLibraryId() {
+        Integer actual = user.getCommentId();
+
+        assertEquals(expected, actual);
     }
 }
