@@ -22,7 +22,7 @@ public class CommentTest {
 
     @Test
     public void testArgConstructor() {
-        Comment comment2 = new Comment(2, "String text", 4, 2);
+        Comment comment2 = new Comment(2, "String text", null, null);
         Assertions.assertNotNull(comment2);
     }
 
@@ -44,15 +44,17 @@ public class CommentTest {
     @Test
     public void testGetSetUserId() {
         Assertions.assertNull(comment.getUserId());
-        comment.setUserId(3);
-        Assertions.assertEquals(3, comment.getUserId());
+        User newUser = new User();
+        comment.setUserId(newUser);
+        Assertions.assertEquals(newUser, comment.getUserId());
     }
 
     @Test
     public void testGetSetVideoId() {
         Assertions.assertNull(comment.getVideoId());
-        comment.setVideoId(4);
-        Assertions.assertEquals(4, comment.getVideoId());
+        Video newVideo = new Video();
+        comment.setVideoId(newVideo);
+        Assertions.assertEquals(newVideo, comment.getVideoId());
     }
 
     @Test
