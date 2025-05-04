@@ -22,7 +22,7 @@ public class UserLibrary {
     )
     private List<Video> favorites;
 
-    @Column(name = "uploads")
+//    @Column(name = "uploads")
     @OneToMany(mappedBy = "userLibrary", cascade = CascadeType.ALL)
     private List<Video> uploads;
 
