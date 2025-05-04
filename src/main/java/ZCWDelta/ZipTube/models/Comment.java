@@ -14,10 +14,14 @@ public class Comment {
     @Column(name = "text")
     private String text;
 
-    @Column(name = "UserId")
+    //@Column(name = "UserId")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "users", referencedColumnName = "id")
     private Integer userId;
 
-    @Column(name = "VideoId")
+    //@Column(name = "VideoId")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "videos", referencedColumnName = "id")
     private Integer videoId;
 
     public Comment() {

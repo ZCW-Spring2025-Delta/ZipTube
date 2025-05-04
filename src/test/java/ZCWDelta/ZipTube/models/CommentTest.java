@@ -1,5 +1,7 @@
 package ZCWDelta.ZipTube.models;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.Entity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
@@ -53,5 +55,10 @@ public class CommentTest {
         Assertions.assertEquals(4, comment.getVideoId());
     }
 
-    //add a createJSON test?
+    @Test
+    public void testCreateJSON() throws JsonProcessingException {
+        ObjectMapper jsonWriter = new ObjectMapper();
+        Comment comment = new Comment();
+        String json = jsonWriter.writeValueAsString(comment);
+    }
 }
