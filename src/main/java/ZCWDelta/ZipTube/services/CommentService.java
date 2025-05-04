@@ -2,6 +2,8 @@ package ZCWDelta.ZipTube.services;
 
 
 import ZCWDelta.ZipTube.models.Comment;
+import ZCWDelta.ZipTube.models.User;
+import ZCWDelta.ZipTube.models.Video;
 import ZCWDelta.ZipTube.repos.CommentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -28,7 +30,7 @@ public class CommentService {
         return repo.findById(id).get();
     }
 
-    public Iterable<Comment> findByVideoId(Integer videoId) {
+    public Iterable<Comment> findByVideoId(Video videoId) {
         ArrayList<Comment> comments = new ArrayList<>();
         for (Comment comment : repo.findAll()) {
             if (comment.getVideoId() == videoId) {
@@ -38,10 +40,10 @@ public class CommentService {
         return comments;
     }
 
-    public Iterable<Comment> findByUserId(Integer userId) {
+    public Iterable<Comment> findByUserId(User userId) {
         ArrayList<Comment> comments = new ArrayList<>();
         for (Comment comment : repo.findAll()) {
-            if (comment.getVideoId() == userId) {
+            if (comment.getUserId() == userId) {
                 comments.add(comment);
             }
         }
@@ -57,13 +59,13 @@ public class CommentService {
         return true;
     }
 
-    public Boolean deleteByUser(Integer userId) {
+    public Boolean deleteByUser(User userId) {
         Iterable<Comment> comments = findByUserId(userId);
         repo.deleteAll(comments);
         return true;
     }
 
-    public Boolean deleteByVideo(Integer videoId) {
+    public Boolean deleteByVideo(Video videoId) {
         Iterable<Comment> comments = findByVideoId(videoId);
         repo.deleteAll(comments);
         return true;
