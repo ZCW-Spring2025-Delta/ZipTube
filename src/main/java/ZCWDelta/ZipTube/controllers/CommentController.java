@@ -1,6 +1,8 @@
 package ZCWDelta.ZipTube.controllers;
 
 import ZCWDelta.ZipTube.models.Comment;
+import ZCWDelta.ZipTube.models.User;
+import ZCWDelta.ZipTube.models.Video;
 import ZCWDelta.ZipTube.services.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +34,7 @@ public class CommentController {
 
     @GetMapping("/video/{videoId}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Iterable<Comment>> getByVideo(@PathVariable("videoId") Integer videoId) {
+    public ResponseEntity<Iterable<Comment>> getByVideo(@PathVariable("videoId") Video videoId) {
         Iterable<Comment> comments = service.findByVideoId(videoId);
         if (comments == null) {
             return new ResponseEntity<Iterable<Comment>>(HttpStatus.NO_CONTENT);
@@ -52,7 +54,7 @@ public class CommentController {
 
     @GetMapping("/user/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Iterable<Comment>> getByUser(@PathVariable("userId") Integer userId) {
+    public ResponseEntity<Iterable<Comment>> getByUser(@PathVariable("userId") User userId) {
         Iterable<Comment> byUsers = service.findByUserId(userId);
         if (byUsers == null) {
             return new ResponseEntity<Iterable<Comment>>(HttpStatus.NO_CONTENT);
@@ -74,13 +76,13 @@ public class CommentController {
 
     @DeleteMapping("/video/{videoId}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Boolean> deleteByVideo(@PathVariable("videoId") Integer videoId) {
+    public ResponseEntity<Boolean> deleteByVideo(@PathVariable("videoId") Video videoId) {
         return new ResponseEntity<>(service.deleteByVideo(videoId), HttpStatus.OK);
     }
 
     @DeleteMapping("/user/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Boolean> deleteByUser(@PathVariable("userId") Integer userId) {
+    public ResponseEntity<Boolean> deleteByUser(@PathVariable("userId") User userId) {
         return new ResponseEntity<>(service.deleteByUser(userId), HttpStatus.OK);
     }
 
