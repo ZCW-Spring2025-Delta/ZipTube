@@ -1,5 +1,6 @@
 package ZCWDelta.ZipTube.services;
 
+import ZCWDelta.ZipTube.models.User;
 import ZCWDelta.ZipTube.models.UserLibrary;
 import ZCWDelta.ZipTube.models.Video;
 import ZCWDelta.ZipTube.repos.UserLibraryRepo;
@@ -32,15 +33,10 @@ public class UserLibraryService {
         return userLibraryRepo.save(userLibrary);
     }
 
-//    public List<Video> updateFavorites(Integer videoId, UserLibrary userLibrary) {
-//        UserLibrary oldLibrary = userLibrary.findById(videoId).get();
-//        originalVideo.setVideoName(video.getVideoName());
-//        originalVideo.setQuery(video.getQuery());
-//        originalVideo.setURL(video.getURL());
-//        originalVideo.setYear(video.getYear());
-//        originalVideo.setFavorite(video.getFavorite());
-//        return videoRepo.save(originalVideo);
-//    }
+    public List<Video> addToFavorites(Video video, User user) {
+//List<Video> faves = user.getFavorites();
+        return null;
+    }
 
     public Boolean delete(UserLibrary userLibrary) {
         Optional<UserLibrary> itemOptional = userLibraryRepo.findById(userLibrary.getVideoId());

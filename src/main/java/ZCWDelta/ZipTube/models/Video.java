@@ -26,24 +26,30 @@ public class Video {
     @Column(name = "URL")
     private String URL;
 
-    @Column(name = "user_library_id")
-    private Integer user_Library_id;
+//    @Column(name = "user_library_id")
+//    private Integer user_Library_id;
 
     @Column(name = "comment_id")
     private Integer commentId;
+
+    //Uploaded by (many-to-one)
+    @ManyToOne
+    @JoinColumn(name = "userLibrary")
+    private UserLibrary userLibrary;
+
 
     public Video() {
         //default constructor
     }
 
-    public Video(Integer videoId, String videoName, String query, Boolean favorite, String year, String URL, Integer user_Library_id, Integer commentId) {
+    public Video(Integer videoId, String videoName, String query, Boolean favorite, String year, String URL, UserLibrary userLibrary, Integer commentId) {
         this.videoId = videoId;
         this.videoName = videoName;
         this.query = query;
         this.favorite = favorite;
         this.year = year;
         this.URL = URL;
-        this.user_Library_id = user_Library_id;
+        this.userLibrary = userLibrary;
         this.commentId = commentId;
     }
 
@@ -95,12 +101,12 @@ public class Video {
         this.URL = URL;
     }
 
-    public Integer getUser_Library_id() {
-        return user_Library_id;
+    public UserLibrary getUserLibrary() {
+        return this.userLibrary;
     }
 
-    public void setUser_Library_id(Integer user_Library_id) {
-        this.user_Library_id = user_Library_id;
+    public void setUserLibrary(UserLibrary userLibrary) {
+        this.userLibrary = userLibrary;
     }
 
     public Integer getCommentId() {

@@ -41,7 +41,7 @@ public class VideoService {
     }
 
     public Boolean delete(Video video) {
-        Optional<Video> itemOptional = videoRepo.findById(video.getUser_Library_id());
+        Optional<Video> itemOptional = videoRepo.findById(video.getUserLibrary().getUserId());
 
         if (itemOptional.isPresent()) {
             videoRepo.deleteById(video.getVideoId());
