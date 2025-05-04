@@ -28,17 +28,50 @@ public class UserLibraryService {
     public UserLibrary showById(Integer id) {
         return userLibraryRepo.findById(id).get();
     }
+//get all favorite videos
+    public List<Video> showAllFavorites(Integer id, User user) {
+        UserLibrary library = user.getUserLibraryId();
+        List<Video> favorites = library.getFavorites();
+        return favorites;
+    }
+
+    //get all uploads videos
+    public List<Video> showAllUploads(Integer id, User user) {
+        UserLibrary library = user.getUserLibraryId();
+        List<Video> uploads = library.getUploads();
+        return uploads;
+    }
 
     public UserLibrary create(UserLibrary userLibrary) {
         return userLibraryRepo.save(userLibrary);
     }
-
+// how we get add to the list of favorites
     public List<Video> addToFavorites(Video video, User user) {
-//List<Video> faves = user.getFavorites();
-        return null;
+        UserLibrary library = user.getUserLibraryId();
+        List<Video> favorites = library.getFavorites();
+        if (!favorites.contains(video)) {
+            favorites.add(video);
+            userLibraryRepo.save(library);
+        }
+
+        return favorites;
     }
 
-    public Boolean delete(UserLibrary userLibrary) {
+    // how we get add to the list of uploads
+    public List<Video> addToUploads(Video video, User user) {
+        UserLibrary library = user.getUserLibraryId();
+        List<Video> uploads = library.getUploads();
+
+        if (!uploads.contains(video)) {
+            uploads.add(video);
+            userLibraryRepo.save(library);
+        }
+
+        return uploads;
+    }
+
+    // delete uploaded video
+    public Boolean delete(UserLibrary userLibrary, Integer videoId) {
         Optional<UserLibrary> itemOptional = userLibraryRepo.findById(userLibrary.getVideoId());
 
         if (itemOptional.isPresent()) {

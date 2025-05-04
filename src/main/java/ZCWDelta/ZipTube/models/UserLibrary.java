@@ -13,7 +13,7 @@ public class UserLibrary {
     @Column(name = "id")
     private Integer Id;
 
-    @Column(name = "favorites")
+   @Column(name = "favorites")
     @ManyToMany
     @JoinTable(
             name = "user_favorite_videos",
@@ -22,7 +22,7 @@ public class UserLibrary {
     )
     private List<Video> favorites;
 
-//    @Column(name = "uploads")
+    @Column(name = "uploads")
     @OneToMany(mappedBy = "userLibrary", cascade = CascadeType.ALL)
     private List<Video> uploads;
 
