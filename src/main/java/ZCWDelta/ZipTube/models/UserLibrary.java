@@ -14,10 +14,17 @@ public class UserLibrary {
     private Integer Id;
 
     @Column(name = "favorites")
-    private List<String> favorites;
+    @ManyToMany
+    @JoinTable(
+            name = "user_favorite_videos",
+            joinColumns = @JoinColumn(name = "userLibrary"),
+            inverseJoinColumns = @JoinColumn(name = "video_id")
+    )
+    private List<Video> favorites;
 
-    @Column(name = "uploads")
-    private List<String> uploads;
+//    @Column(name = "uploads")
+    @OneToMany(mappedBy = "userLibrary", cascade = CascadeType.ALL)
+    private List<Video> uploads;
 
     @Column(name = "User_id")
     private Integer UserId;
@@ -29,7 +36,7 @@ public class UserLibrary {
         //default constructor
     }
 
-    public UserLibrary (Integer id, List<String> favorites, List<String> uploads, Integer userId, Integer videoId) {
+    public UserLibrary (Integer id, List<Video> favorites, List<Video> uploads, Integer userId, Integer videoId) {
             this.Id = id;
             this.favorites = favorites;
             this.uploads = uploads;
@@ -45,19 +52,19 @@ public class UserLibrary {
         Id = id;
     }
 
-    public List<String> getFavorites() {
+    public List<Video> getFavorites() {
         return favorites;
     }
 
-    public void setFavorites(List<String> favorites) {
+    public void setFavorites(List<Video> favorites) {
         this.favorites = favorites;
     }
 
-    public List<String> getUploads() {
+    public List<Video> getUploads() {
         return uploads;
     }
 
-    public void setUpload(List<String> uploads) {
+    public void setUpload(List<Video> uploads) {
         this.uploads = uploads;
     }
 

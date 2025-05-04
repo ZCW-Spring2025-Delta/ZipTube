@@ -18,9 +18,9 @@ public class VideoTest {
         Boolean favorite = true;
         String year = "12-11-2022";
         String url = "www.hereisthevideo.com";
-        Integer userId = 3;
+        UserLibrary userLibrary = new UserLibrary();
         Integer commentId = 2;
-      video = new Video(id, videoName,query, favorite, year, url, userId, commentId);
+      video = new Video(id, videoName,query, favorite, year, url, userLibrary, commentId);
     }
     @Test
     public void testGettersAndSettersId(){
