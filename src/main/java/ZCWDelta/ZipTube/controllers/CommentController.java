@@ -51,7 +51,6 @@ public class CommentController {
     }
 
     @GetMapping("/user/{userId}")
-    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Iterable<Comment>> getByUser(@PathVariable("userId") Integer userId) {
         Iterable<Comment> byUsers = service.findByUserId(userId);
