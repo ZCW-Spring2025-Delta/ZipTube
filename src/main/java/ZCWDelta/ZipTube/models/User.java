@@ -36,13 +36,13 @@ public class User {
     private Integer commentId;
 
     @Column(name = "user_library_id")
-    private Integer userLibraryId;
+    private UserLibrary userLibraryId;
 
     public User(){
         //default constructor
     }
 
-    public User (Integer id, String username, String firstName, String lastName, String email, String password, String favorites, String upload, Integer commentId, Integer userLibraryId) {
+    public User (Integer id, String username, String firstName, String lastName, String email, String password, String favorites, String upload, Integer commentId, UserLibrary userLibraryId) {
         this.id = id;
         this.username = username;
         this.firstName = firstName;
@@ -121,11 +121,11 @@ public class User {
         this.commentId = commentId;
     }
 
-    public Integer getUserLibraryId() {
+    public UserLibrary getUserLibraryId() {
         return userLibraryId;
     }
 
-    public void setUserLibraryId(Integer userLibraryId) {
+    public void setUserLibraryId(UserLibrary userLibraryId) {
         this.userLibraryId = userLibraryId;
     }
 }
