@@ -17,25 +17,25 @@ public class Comment {
     //@Column(name = "UserId")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "users", referencedColumnName = "id")
-    private Integer userId;
+    private User userId;
 
     //@Column(name = "VideoId")
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "videos", referencedColumnName = "id")
-    private Integer videoId;
+    private Video videoId;
 
     public Comment() {
         //default constructor
     }
 
-    public Comment(String text, Integer userId, Integer videoId) {
+    public Comment(String text, User userId, Video videoId) {
         this.text = text;
         this.userId = userId;
         this.videoId = videoId;
     }
 
     //For testing purposes
-    public Comment(Integer id, String text, Integer userId, Integer videoId) {
+    public Comment(Integer id, String text, User userId, Video videoId) {
         this.id = id;
         this.text = text;
         this.userId = userId;
@@ -58,19 +58,19 @@ public class Comment {
         this.text = text;
     }
 
-    public Integer getUserId() {
+    public User getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
     }
 
-    public Integer getVideoId() {
+    public Video getVideoId() {
         return videoId;
     }
 
-    public void setVideoId(Integer videoId) {
+    public void setVideoId(Video videoId) {
         this.videoId = videoId;
     }
 }
