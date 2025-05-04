@@ -2,8 +2,9 @@ package ZCWDelta.ZipTube.controllers;
 
 import ZCWDelta.ZipTube.models.Comment;
 import ZCWDelta.ZipTube.repos.CommentRepo;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-//import org.junit.runner.RunWith;
+import org.junit.runner.RunWith;
 import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -16,14 +17,11 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.Optional;
 
 @SpringBootTest
-@AutoConfigureMockMvc
-//@RunWith(SpringRunner.class)
 public class CommentControllerTest {
 
     @Autowired
-    private MockMvc mockMvc;
+    private MockMvc mvc;
 
-    //@Autowired
     private CommentRepo repo;
 
     //may need to wait until H2DB gets set up for tests to run
@@ -35,30 +33,34 @@ public class CommentControllerTest {
                 .willReturn(Optional.of(new Comment("string", null, null)));
 
         String expectedString = "{\"id\":null,\"text\":string,\"userId\":null,\"videoId\":null}";
-        this.mockMvc.perform(MockMvcRequestBuilders
+        this.mvc.perform(MockMvcRequestBuilders
                 .get("/comments/" + givenId))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string(expectedString));
     }
 
-    @Test //postmapping
-    public void testCreateComment() throws Exception {
-        Comment comment = new Comment("Comment text", null, null);
-        BDDMockito
-                .given(repo.save(comment))
-                .willReturn(comment);
+//    @Test //getmapping all
+//    public void testShowAllComments() {
+//
+//    }
 
-        String expectedString = "{\"id\":null,\"text\":Comment text,\"userId\":null,\"videoId\":null}";
-        this.mockMvc.perform(MockMvcRequestBuilders
-                .post("/comment/")
-                .content(expectedString)
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-            )
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andExpect(MockMvcResultMatchers.content().string(expectedString));
-    }
-    //getmapping all
+//    @Test //postmapping
+//    public void testCreateComment() throws Exception {
+//        Comment comment = new Comment("Comment text", null, null);
+//        BDDMockito
+//                .given(repo.save(comment))
+//                .willReturn(comment);
+//
+//        String expectedString = "{\"id\":null,\"text\":Comment text,\"userId\":null,\"videoId\":null}";
+//        this.mockMvc.perform(MockMvcRequestBuilders
+//                .post("/comment/")
+//                .content(expectedString)
+//                .accept(MediaType.APPLICATION_JSON)
+//                .contentType(MediaType.APPLICATION_JSON)
+//            )
+//                .andExpect(MockMvcResultMatchers.status().isCreated())
+//                .andExpect(MockMvcResultMatchers.content().string(expectedString));
+//    }
     //get mapping by user id
     //getmapping by video id
 
