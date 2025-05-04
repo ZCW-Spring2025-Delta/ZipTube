@@ -21,7 +21,7 @@ public class Video {
     private Boolean favorite;
 
     @Column(name = "video_year")
-    private Integer year;
+    private String year;
 
     @Column(name = "URL")
     private String URL;
@@ -36,7 +36,7 @@ public class Video {
         //default constructor
     }
 
-    public Video(Integer videoId, String videoName, String query, Boolean favorite, Integer year, String URL, Integer user_Library_id, Integer commentId) {
+    public Video(Integer videoId, String videoName, String query, Boolean favorite, String year, String URL, Integer user_Library_id, Integer commentId) {
         this.videoId = videoId;
         this.videoName = videoName;
         this.query = query;
@@ -79,11 +79,11 @@ public class Video {
         this.favorite = favorite;
     }
 
-    public Integer getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(Integer year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
