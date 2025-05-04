@@ -1,7 +1,6 @@
 package ZCWDelta.ZipTube.models;
 
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
 
 @Entity
 @Table(name = "Videos")
@@ -21,7 +20,7 @@ public class Video {
     @Column(name = "favorite")
     private Boolean favorite;
 
-    @Column(name = "year")
+    @Column(name = "video_year")
     private Integer year;
 
     @Column(name = "URL")
