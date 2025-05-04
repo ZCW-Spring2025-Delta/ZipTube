@@ -20,7 +20,7 @@ public class Comment {
     private Integer userId;
 
     //@Column(name = "VideoId")
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "videos", referencedColumnName = "id")
     private Integer videoId;
 
