@@ -35,11 +35,11 @@ public class CommentController {
     @GetMapping("/video/{videoId}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Iterable<Comment>> getByVideo(@PathVariable("videoId") Video videoId) {
-        Iterable<Comment> comments = service.findByVideoId(videoId);
-        if (comments == null) {
+        Iterable<Comment> byVideo = service.findByVideoId(videoId);
+        if (byVideo == null) {
             return new ResponseEntity<Iterable<Comment>>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<Iterable<Comment>>(comments, HttpStatus.OK);
+        return new ResponseEntity<Iterable<Comment>>(byVideo, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
