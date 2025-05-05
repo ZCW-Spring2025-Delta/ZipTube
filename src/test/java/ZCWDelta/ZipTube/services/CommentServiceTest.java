@@ -1,63 +1,103 @@
 package ZCWDelta.ZipTube.services;
 
-import ZCWDelta.ZipTube.ZipTubeApplication;
-import ZCWDelta.ZipTube.controllers.CommentController;
-import ZCWDelta.ZipTube.repos.CommentRepo;
+import ZCWDelta.ZipTube.models.User;
 import ZCWDelta.ZipTube.models.Comment;
+import ZCWDelta.ZipTube.models.Video;
 import org.junit.jupiter.api.Assertions;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.mockito.BDDMockito;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import java.util.List;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration(classes = ZipTubeApplication.class)
+@SpringBootTest
 public class CommentServiceTest {
 
+    @Autowired
     private CommentService service;
 
-    private CommentController controller;
-
-    private CommentRepo repo;
-
-    @Before
+    @BeforeEach
     public void setUp() {
-        this.controller = new CommentController(service);
-        this.service = new CommentService(repo);
+        service.cleanUp();
     }
 
     @Test
     public void testCreateComment() {
-        HttpStatus expected = HttpStatus.CREATED;
-        Comment expectedComment = new Comment("string", null, null);
-        BDDMockito.given(service.create(expectedComment)).willReturn(expectedComment);
+        Comment comment = new Comment("String", null, null);
+        Comment actual = service.create(comment);
 
-        ResponseEntity<Comment> response = controller.writeComment(expectedComment);
-        HttpStatusCode actual = response.getStatusCode();
-        Comment actualComment = response.getBody();
-
-        Assertions.assertEquals(expected, actual);
-        Assertions.assertEquals(expectedComment, actualComment);
+        Assertions.assertNotNull(actual);
+        Assertions.assertEquals("String", actual.getText());
     }
 
     @Test
-    public void testShowComment() {
-        Integer givenId = 1;
-        HttpStatus expected = HttpStatus.OK;
-        Comment expectedComment = new Comment(givenId, "String", null, null);
-        BDDMockito.given(service.show(1)).willReturn(expectedComment);
+    public void testShowAll() {
+        Comment comment = new Comment("String", null, null);
+        service.create(comment);
+        List<Comment> comments = service.getAllComments();
 
-        ResponseEntity<Comment> response = controller.getComment(givenId);
-        HttpStatusCode actual = response.getStatusCode();
-        Comment actualComment = response.getBody();
+        Assertions.assertNotNull(comments);
+        Assertions.assertFalse(comments.isEmpty());
+    }
 
-        Assertions.assertEquals(expected, actual);
-        Assertions.assertEquals(expectedComment, actualComment);
+    @Test
+    public void testShowById() {
+        Comment comment = new Comment("String", null, null);
+        service.create(comment);
+
+        Assertions.assertNotNull(service.show(comment.getId()));
+    }
+
+    @Test
+    public void testFindByUser() {
+        User user = new User();
+        service.create(new Comment("String", user, null));
+        List<Comment> comments = service.findByUserId(user);
+
+        Assertions.assertNotNull(comments);
+        Assertions.assertFalse(comments.isEmpty());
+    }
+
+    @Test
+    public void testFindByVideo() {
+        Video video = new Video();
+        service.create(new Comment("String", null, video));
+        List<Comment> comments = service.findByVideoId(video);
+
+        Assertions.assertNotNull(comments);
+        Assertions.assertFalse(comments.isEmpty());
+    }
+
+    @Test
+    public void testDeleteById() {
+        Comment comment = new Comment("String", null, null);
+        service.create(comment);
+        Assertions.assertFalse(service.getAllComments().isEmpty());
+
+        service.delete(comment.getId());
+        Assertions.assertTrue(service.getAllComments().isEmpty());
+    }
+
+    @Test
+    public void testDeleteByUser() {
+        User user1 = new User();
+        User user2 = new User();
+        service.create(new Comment("String", user1, null));
+        service.create(new Comment("String", user2, null));
+        Assertions.assertEquals(2, service.getAllComments().size());
+        service.deleteByUser(user1);
+        Assertions.assertEquals(1, service.getAllComments().size());
+    }
+
+    @Test
+    public void testDeleteByVideo() {
+        Video video1 = new Video();
+        Video video2 = new Video();
+        service.create(new Comment("String", null, video1));
+        service.create(new Comment("String", null, video2));
+        Assertions.assertEquals(2, service.getAllComments().size());
+        service.deleteByVideo(video1);
+        Assertions.assertEquals(1, service.getAllComments().size());
     }
 
 }

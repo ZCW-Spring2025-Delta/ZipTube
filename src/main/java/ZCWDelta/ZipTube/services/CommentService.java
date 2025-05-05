@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Service
 @Component
@@ -22,7 +24,7 @@ public class CommentService {
         this.repo = repo;
     }
 
-    public Iterable<Comment> getAllComments() {
+    public List<Comment> getAllComments() {
         return repo.findAll();
     }
 
@@ -30,20 +32,20 @@ public class CommentService {
         return repo.findById(id).get();
     }
 
-    public Iterable<Comment> findByVideoId(Video videoId) {
+    public List<Comment> findByVideoId(Video videoId) {
         ArrayList<Comment> comments = new ArrayList<>();
         for (Comment comment : repo.findAll()) {
-            if (comment.getVideoId() == videoId) {
+            if (Objects.equals(comment.getVideoId().getVideoId(), videoId.getVideoId())) {
                 comments.add(comment);
             }
         }
         return comments;
     }
 
-    public Iterable<Comment> findByUserId(User userId) {
+    public List<Comment> findByUserId(User userId) {
         ArrayList<Comment> comments = new ArrayList<>();
         for (Comment comment : repo.findAll()) {
-            if (comment.getUserId() == userId) {
+            if (Objects.equals(comment.getUserId().getId(), userId.getId())) {
                 comments.add(comment);
             }
         }
@@ -60,14 +62,18 @@ public class CommentService {
     }
 
     public Boolean deleteByUser(User userId) {
-        Iterable<Comment> comments = findByUserId(userId);
+        List<Comment> comments = findByUserId(userId);
         repo.deleteAll(comments);
         return true;
     }
 
     public Boolean deleteByVideo(Video videoId) {
-        Iterable<Comment> comments = findByVideoId(videoId);
+        List<Comment> comments = findByVideoId(videoId);
         repo.deleteAll(comments);
         return true;
+    }
+
+    public void cleanUp() {
+        repo.deleteAll();
     }
 }
