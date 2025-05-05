@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user/library")
+@RequestMapping("/library")
 public class UserLibraryController {
 
     @Autowired
@@ -21,9 +21,14 @@ public class UserLibraryController {
     public UserLibraryController(UserLibraryService userLibraryService){
         this.userLibraryService = userLibraryService;
     }
+//    @GetMapping
+//    public ResponseEntity<List<UserLibrary>> showAll(){
+//        return new ResponseEntity<>(userLibraryService.showAll(), HttpStatus.OK);
+//    }
+
     @GetMapping
-    public ResponseEntity<List<UserLibrary>> show(UserLibrary userLibrary){
-        return new ResponseEntity<>(userLibraryService.showAll(), HttpStatus.CREATED);
+    public ResponseEntity<UserLibrary> show(UserLibrary userLibrary){
+        return new ResponseEntity<>(userLibraryService.showById(userLibrary.getId()), HttpStatus.CREATED);
     }
 
     @GetMapping("/favorites")
