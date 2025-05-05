@@ -38,16 +38,17 @@ public class UserLibraryServiceTest {
     }
 
     @Test
-    public void testCreate(){
+    public void testShow(){
         //given
-        HttpStatus expected = HttpStatus.CREATED;
-        UserLibrary expectedUserLibrary = new UserLibrary(null, null, null, null, null);
+        Integer userLibraryId = 3;
+        HttpStatus expected = HttpStatus.OK;
+        UserLibrary expectedUserLibrary = new UserLibrary(userLibraryId, null, null, null, null);
         BDDMockito
-                .given(userLibraryService.create(expectedUserLibrary))
+                .given(userLibraryService.showById(userLibraryId))
                 .willReturn(expectedUserLibrary);
 
         //given
-        ResponseEntity<UserLibrary> response = controller.create(expectedUserLibrary);
+        ResponseEntity<UserLibrary> response = controller.show(expectedUserLibrary);
         HttpStatus actual = (HttpStatus) response.getStatusCode();
         UserLibrary actualUserLibrary = response.getBody();
 

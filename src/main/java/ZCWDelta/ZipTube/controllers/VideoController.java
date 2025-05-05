@@ -25,7 +25,7 @@ public class VideoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Video> getVideoById(@PathVariable Integer videoId){
-        Video video = videoService.getVideoById(videoId);
+        Video video = videoService.showById(videoId);
         if (video != null) {
             return new ResponseEntity<>(video, HttpStatus.OK);
         } else {
@@ -45,7 +45,7 @@ public class VideoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Integer videoId){
+    public ResponseEntity<Video> delete(@PathVariable Integer videoId){
         videoService.delete(videoId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
