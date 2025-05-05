@@ -3,7 +3,6 @@ package ZCWDelta.ZipTube.controllers;
 import ZCWDelta.ZipTube.models.Comment;
 import ZCWDelta.ZipTube.models.User;
 import ZCWDelta.ZipTube.models.Video;
-import ZCWDelta.ZipTube.repos.CommentRepo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ public class CommentControllerTest {
     @Autowired
     private TestRestTemplate testTemplate;
 
-    //may need to wait until H2DB gets set up for tests to run
     @Test //postmapping
     public void testCreateComment() throws Exception {
         Comment comment = new Comment(null, "String", null, null);
@@ -42,7 +40,8 @@ public class CommentControllerTest {
     public void testShowById() {
         Comment actual = new Comment("String", null, null);
         Comment posted = testTemplate.postForObject("/comments", actual, Comment.class);
-        ResponseEntity<Comment> response = testTemplate.getForEntity("/comments/" + posted.getId(), Comment.class);
+        ResponseEntity<Comment> response = testTemplate.getForEntity("/comments/"
+                + posted.getId(), Comment.class);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
         Assertions.assertNotNull(response.getBody());
@@ -54,7 +53,8 @@ public class CommentControllerTest {
         User user = new User();
         Comment actual = new Comment("String", user, null);
         Comment posted = testTemplate.postForObject("/comments", actual, Comment.class);
-        ResponseEntity<Comment[]> response = testTemplate.getForEntity("/comments/user/" + posted.getUserId().getId(), Comment[].class);
+        ResponseEntity<Comment[]> response = testTemplate.getForEntity("/comments/user/"
+                + posted.getUserId().getId(), Comment[].class);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
         Assertions.assertNotNull(response.getBody());
@@ -65,30 +65,46 @@ public class CommentControllerTest {
         Video video = new Video();
         Comment actual = new Comment("string", null, video);
         Comment posted = testTemplate.postForObject("/comments", actual, Comment.class);
-        ResponseEntity<Comment[]> response = testTemplate.getForEntity("/comments/video/" + posted.getVideoId().getVideoId(), Comment[].class);
+        ResponseEntity<Comment[]> response = testTemplate.getForEntity("/comments/video/"
+                + posted.getVideoId().getVideoId(), Comment[].class);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
         Assertions.assertNotNull(response.getBody());
     }
 
-//    @Test //deletemapping by id
-//    public void testDeleteById() {
-//        Comment comment = new Comment("String", null, null);
-//        Comment posted = testTemplate.postForObject("/comments", comment, Comment.class);
-//        testTemplate.delete("/comments/" + posted.getId());
-//
-//        ResponseEntity<String> response = testTemplate.getForEntity("/comments/" + posted.getId(), String.class);
-//        Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-//    }
+    @Test //deletemapping by id
+    public void testDeleteById() {
+        Comment comment = new Comment("String", null, null);
+        testTemplate.postForObject("/comments", comment, Comment.class);
+        testTemplate.delete("/comments/" + comment.getId());
 
-//    @Test //deletemapping by user id
-//    public void testDeleteByUserId() {
-//
-//    }
+        ResponseEntity<Void> response = testTemplate.getForEntity("/comments/"
+                + comment.getId() + "/", Void.class);
+        Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
 
-//    @Test //deletemapping by video id
-//    public void testDeleteByVideoId() {
-//
-//    }
+    @Test //deletemapping by user id
+    public void testDeleteByUserId() {
+        User user = new User();
+        Comment comment = new Comment("", user, null);
+        testTemplate.postForObject("/comments", comment, Comment.class);
+        testTemplate.delete("/comments/user/" + comment.getUserId().getId());
+
+        ResponseEntity<Void> response = testTemplate.getForEntity("/comments/user/"
+                + comment.getUserId().getId() + "/", Void.class);
+        Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test //deletemapping by video id
+    public void testDeleteByVideoId() {
+        Video video = new Video();
+        Comment comment = new Comment("String", null, video);
+        testTemplate.postForObject("/comments", comment, Comment.class);
+        testTemplate.delete("/comments/video/" + comment.getVideoId().getVideoId());
+
+        ResponseEntity<Void> response = testTemplate.getForEntity("/comments/video/"
+                + comment.getVideoId().getVideoId() + "/", Void.class);
+        Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
 
 }

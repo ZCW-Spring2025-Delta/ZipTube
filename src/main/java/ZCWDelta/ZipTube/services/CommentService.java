@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Component
@@ -34,7 +35,7 @@ public class CommentService {
     public List<Comment> findByVideoId(Video videoId) {
         ArrayList<Comment> comments = new ArrayList<>();
         for (Comment comment : repo.findAll()) {
-            if (comment.getVideoId() == videoId) {
+            if (Objects.equals(comment.getVideoId().getVideoId(), videoId.getVideoId())) {
                 comments.add(comment);
             }
         }
@@ -44,7 +45,7 @@ public class CommentService {
     public List<Comment> findByUserId(User userId) {
         ArrayList<Comment> comments = new ArrayList<>();
         for (Comment comment : repo.findAll()) {
-            if (comment.getUserId() == userId) {
+            if (Objects.equals(comment.getUserId().getId(), userId.getId())) {
                 comments.add(comment);
             }
         }
@@ -70,5 +71,9 @@ public class CommentService {
         List<Comment> comments = findByVideoId(videoId);
         repo.deleteAll(comments);
         return true;
+    }
+
+    public void cleanUp() {
+        repo.deleteAll();
     }
 }

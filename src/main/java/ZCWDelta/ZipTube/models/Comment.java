@@ -15,7 +15,7 @@ public class Comment {
     private String text;
 
     //@Column(name = "UserId")
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "users", referencedColumnName = "id")
     private User userId;
 
