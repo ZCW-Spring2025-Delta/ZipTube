@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/video")
 public class VideoController {
 
-    @Autowired
+
     VideoService videoService;
 
     public VideoController(VideoService videoService){
@@ -23,14 +23,15 @@ public class VideoController {
         return new ResponseEntity<>(videoService.showAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{videoId}")
     public ResponseEntity<Video> getVideoById(@PathVariable Integer videoId){
         Video video = videoService.showById(videoId);
         if (video != null) {
             return new ResponseEntity<>(video, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }    }
+        }
+    }
 
     @PostMapping
     public ResponseEntity<Video> create(@RequestBody Video video){
@@ -44,7 +45,7 @@ public class VideoController {
         return new ResponseEntity<>(newVideo, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{videoId}")
     public ResponseEntity<Video> delete(@PathVariable Integer videoId){
         videoService.delete(videoId);
         return new ResponseEntity<>(HttpStatus.OK);
