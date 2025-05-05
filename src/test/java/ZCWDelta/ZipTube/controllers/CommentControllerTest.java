@@ -4,7 +4,6 @@ import ZCWDelta.ZipTube.models.Comment;
 import ZCWDelta.ZipTube.models.User;
 import ZCWDelta.ZipTube.models.Video;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -66,11 +65,11 @@ public class CommentControllerTest {
         Video video = new Video();
         Comment actual = new Comment("string", null, video);
         Comment posted = testTemplate.postForObject("/comments", actual, Comment.class);
-        ResponseEntity<Comment[]> response1 = testTemplate.getForEntity("/comments/video/"
+        ResponseEntity<Comment[]> response = testTemplate.getForEntity("/comments/video/"
                 + posted.getVideoId().getVideoId(), Comment[].class);
 
-        Assertions.assertEquals(HttpStatus.OK, response1.getStatusCode());
-        Assertions.assertNotNull(response1.getBody());
+        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+        Assertions.assertNotNull(response.getBody());
     }
 
     @Test //deletemapping by id
@@ -101,7 +100,7 @@ public class CommentControllerTest {
         Video video = new Video();
         Comment comment = new Comment("String", null, video);
         testTemplate.postForObject("/comments", comment, Comment.class);
-        testTemplate.delete("/comments/video/" + comment.getVideoId().getVideoId());
+        testTemplate.delete("comments/video/" + comment.getVideoId().getVideoId());
 
         ResponseEntity<Void> response = testTemplate.getForEntity("/comments/video/"
                 + comment.getVideoId().getVideoId() + "/", Void.class);
