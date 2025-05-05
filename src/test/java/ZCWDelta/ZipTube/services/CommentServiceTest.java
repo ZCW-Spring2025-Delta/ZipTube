@@ -9,55 +9,55 @@ import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.BDDMockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration(classes = ZipTubeApplication.class)
+import java.util.List;
+
+@SpringBootTest
 public class CommentServiceTest {
 
+    @Autowired
     private CommentService service;
 
-    private CommentController controller;
-
-    private CommentRepo repo;
-
-    @Before
-    public void setUp() {
-        this.controller = new CommentController(service);
-        this.service = new CommentService(repo);
-    }
 
     @Test
     public void testCreateComment() {
-        HttpStatus expected = HttpStatus.CREATED;
-        Comment expectedComment = new Comment("string", null, null);
-        BDDMockito.given(service.create(expectedComment)).willReturn(expectedComment);
+        Comment comment = new Comment("String", null, null);
+        Comment actual = service.create(comment);
 
-        ResponseEntity<Comment> response = controller.writeComment(expectedComment);
-        HttpStatusCode actual = response.getStatusCode();
-        Comment actualComment = response.getBody();
-
-        Assertions.assertEquals(expected, actual);
-        Assertions.assertEquals(expectedComment, actualComment);
+        Assertions.assertNotNull(actual);
+        Assertions.assertEquals("String", actual.getText());
     }
 
     @Test
-    public void testShowComment() {
-        Integer givenId = 1;
-        HttpStatus expected = HttpStatus.OK;
-        Comment expectedComment = new Comment(givenId, "String", null, null);
-        BDDMockito.given(service.show(1)).willReturn(expectedComment);
+    public void testShowAll() {
+        Comment comment = new Comment("String", null, null);
+        service.create(comment);
+        List<Comment> comments = service.getAllComments();
 
-        ResponseEntity<Comment> response = controller.getComment(givenId);
-        HttpStatusCode actual = response.getStatusCode();
-        Comment actualComment = response.getBody();
-
-        Assertions.assertEquals(expected, actual);
-        Assertions.assertEquals(expectedComment, actualComment);
+        Assertions.assertNotNull(comments);
+        Assertions.assertTrue(comments.size() > 0);
     }
+
+    @Test
+    public void testShowById() {
+        Comment comment = new Comment("String", null, null);
+        service.create(comment);
+
+        Assertions.assertNotNull(service.show(comment.getId()));
+    }
+
+    //write tests for:
+    //find by video
+    //find by user
+    //delete by id
+    //delete by user
+    //delete by video
 
 }
