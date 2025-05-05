@@ -36,7 +36,7 @@ public class VideoController {
     @PostMapping
     public ResponseEntity<Video> create(@RequestBody Video video){
         Video newVideo = videoService.create(video);
-        return new ResponseEntity<>(video, HttpStatus.CREATED);
+        return new ResponseEntity<>(newVideo, HttpStatus.CREATED);
     }
 
     @PutMapping
