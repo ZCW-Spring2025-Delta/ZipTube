@@ -7,8 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/video")
@@ -26,10 +24,13 @@ public class VideoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Video> getVideoById(@PathVariable Integer Id){
-        Video video = videoService.showById(Id);
-        return new ResponseEntity<>(video, HttpStatus.OK);
-    }
+    public ResponseEntity<Video> getVideoById(@PathVariable Integer videoId){
+        Video video = videoService.getVideoById(videoId);
+        if (video != null) {
+            return new ResponseEntity<>(video, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }    }
 
     @PostMapping
     public ResponseEntity<Video> create(@RequestBody Video video){
@@ -44,8 +45,8 @@ public class VideoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@RequestBody Video video){
-        videoService.delete(video);
+    public ResponseEntity<?> delete(@PathVariable Integer videoId){
+        videoService.delete(videoId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

@@ -40,11 +40,11 @@ public class VideoService {
         return videoRepo.save(originalVideo);
     }
 
-    public Boolean delete(Video video) {
-        Optional<Video> itemOptional = videoRepo.findById(video.getUserLibrary().getUserId());
+    public Boolean delete(Integer videoId) {
+        Optional<Video> itemOptional = videoRepo.findById(videoId);
 
         if (itemOptional.isPresent()) {
-            videoRepo.deleteById(video.getVideoId());
+            videoRepo.deleteById(videoId);
             return true; // successfully deleted
         } else {
             return false; // no item found to delete
