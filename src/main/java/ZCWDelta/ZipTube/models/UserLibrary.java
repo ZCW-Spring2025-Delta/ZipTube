@@ -11,7 +11,7 @@ public class UserLibrary {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Integer Id;
+    private Integer id;
 
    @Column(name = "favorites")
     @ManyToMany
@@ -22,7 +22,7 @@ public class UserLibrary {
     )
     private List<Video> favorites;
 
-    @Column(name = "uploads")
+//    @Column(name = "uploads")
     @OneToMany(mappedBy = "userLibrary", cascade = CascadeType.ALL)
     private List<Video> uploads;
 
@@ -37,7 +37,7 @@ public class UserLibrary {
     }
 
     public UserLibrary (Integer id, List<Video> favorites, List<Video> uploads, Integer userId, Integer videoId) {
-            this.Id = id;
+            this.id = id;
             this.favorites = favorites;
             this.uploads = uploads;
             this.UserId = userId;
@@ -45,11 +45,11 @@ public class UserLibrary {
         }
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer id) {
-        Id = id;
+        id = id;
     }
 
     public List<Video> getFavorites() {

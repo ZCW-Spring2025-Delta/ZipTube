@@ -1,5 +1,7 @@
 package ZCWDelta.ZipTube.models;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -82,5 +84,16 @@ public class VideoTest {
 
         //Then
         Assert.assertEquals("www.hereisthevideo.com", actualString);
+    }
+
+    @Test
+    public void testCreateJson() throws JsonProcessingException {
+        ObjectMapper jsonWriter = new ObjectMapper();
+        Video baker = new Video();
+        String json = jsonWriter.writeValueAsString(baker);
+
+        Assert.assertTrue(json.contains("videoName"));
+        Assert.assertTrue(json.contains("url"));
+        Assert.assertTrue(json.contains("favorite"));
     }
 }
