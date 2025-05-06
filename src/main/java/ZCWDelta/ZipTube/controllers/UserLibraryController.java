@@ -28,40 +28,40 @@ public class UserLibraryController {
 
     @GetMapping
     public ResponseEntity<UserLibrary> show(UserLibrary userLibrary){
-        return new ResponseEntity<>(userLibraryService.showById(userLibrary.getId()), HttpStatus.CREATED);
+        return new ResponseEntity<>(userLibraryService.showById(userLibrary.getId()), HttpStatus.OK);
     }
 
-    @GetMapping("/favorites")
-    public ResponseEntity<Iterable<Video>> getAllFavorites(@PathVariable Integer id, @RequestBody User user){
-        return new ResponseEntity<>(userLibraryService.showAllFavorites(id, user), HttpStatus.OK);
+    @GetMapping("/favorites/{userLibraryId}")
+    public ResponseEntity<Iterable<Video>> getAllFavorites(@PathVariable Integer userLibraryId){
+        return new ResponseEntity<>(userLibraryService.showAllFavorites(userLibraryId), HttpStatus.OK);
     }
-    @GetMapping("/favorites/{id}")
-    public ResponseEntity<Video> getFavoriteVideoById(@PathVariable Integer videoId, @RequestBody User user){
-        List<Video> favorites = userLibraryService.showAllFavorites(user.getId(), user);
+    @GetMapping("/favorites/{videoId}")
+    public ResponseEntity<Video> getFavoriteVideoById(@PathVariable Integer videoId){
+        List<Video> favorites = userLibraryService.showAllFavorites(videoId);
         return new ResponseEntity<>(favorites.get(videoId), HttpStatus.OK);
     }
 
-    @GetMapping("/uploads")
-    public ResponseEntity<Iterable<Video>> getAllUploads(@PathVariable Integer id, @RequestBody User user){
-        return new ResponseEntity<>(userLibraryService.showAllUploads(id, user), HttpStatus.OK);
+    @GetMapping("/uploads/{userLibraryId}")
+    public ResponseEntity<Iterable<Video>> getAllUploads(@PathVariable Integer userLibraryId){
+        return new ResponseEntity<>(userLibraryService.showAllUploads(userLibraryId), HttpStatus.OK);
     }
 
     @GetMapping("/uploads/{id}")
-    public ResponseEntity<Video> getUploadVideoById(@PathVariable Integer videoId, @RequestBody User user){
-        List<Video> uploads = userLibraryService.showAllUploads(user.getId(), user);
+    public ResponseEntity<Video> getUploadVideoById(@PathVariable Integer userId, @PathVariable Integer videoId){
+        List<Video> uploads = userLibraryService.showAllUploads(userId);
         return new ResponseEntity<>(uploads.get(videoId), HttpStatus.OK);
     }
 
     @PostMapping("/uploads")
-    public ResponseEntity<Video> addToUploads(@PathVariable Video video, @RequestBody User user){
-        List<Video> uploads = userLibraryService.showAllUploads(user.getId(), user);
+    public ResponseEntity<Video> addToUploads(@RequestBody Video video, @RequestBody User user){
+        List<Video> uploads = userLibraryService.showAllUploads(user.getId());
         uploads.add(video);
         return new ResponseEntity<>(video, HttpStatus.CREATED);
     }
 
     @PostMapping("/favorites")
-    public ResponseEntity<Video> addToFavorites(@PathVariable Video video, @RequestBody User user){
-        List<Video> favorites = userLibraryService.showAllFavorites(user.getId(), user);
+    public ResponseEntity<Video> addToFavorites(@PathVariable Integer userId, @RequestBody Video video){
+        List<Video> favorites = userLibraryService.addToFavorites(video, userId);
         favorites.add(video);
         return new ResponseEntity<>(video, HttpStatus.CREATED);
     }
