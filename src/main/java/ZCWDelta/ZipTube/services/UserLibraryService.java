@@ -29,15 +29,15 @@ public class UserLibraryService {
         return userLibraryRepo.findById(id).get();
     }
 //get all favorite videos
-    public List<Video> showAllFavorites(Integer id, User user) {
-        UserLibrary library = user.getUserLibraryId();
+    public List<Video> showAllFavorites(Integer userLibraryId) {
+        UserLibrary library = userLibraryRepo.getReferenceById(userLibraryId);
         List<Video> favorites = library.getFavorites();
         return favorites;
     }
 
     //get all uploads videos
-    public List<Video> showAllUploads(Integer id, User user) {
-        UserLibrary library = user.getUserLibraryId();
+    public List<Video> showAllUploads(Integer userLibraryId) {
+        UserLibrary library = userLibraryRepo.getReferenceById(userLibraryId);
         List<Video> uploads = library.getUploads();
         return uploads;
     }
@@ -46,8 +46,8 @@ public class UserLibraryService {
         return userLibraryRepo.save(userLibrary);
     }
 // how we get add to the list of favorites
-    public List<Video> addToFavorites(Video video, User user) {
-        UserLibrary library = user.getUserLibraryId();
+    public List<Video> addToFavorites(Video video, Integer userId) {
+        UserLibrary library = new UserLibrary();
         List<Video> favorites = library.getFavorites();
         if (!favorites.contains(video)) {
             favorites.add(video);

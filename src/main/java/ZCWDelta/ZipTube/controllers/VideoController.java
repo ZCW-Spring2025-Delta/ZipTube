@@ -7,14 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/video")
 public class VideoController {
 
-    @Autowired
+
     VideoService videoService;
 
     public VideoController(VideoService videoService){
@@ -25,16 +23,20 @@ public class VideoController {
         return new ResponseEntity<>(videoService.showAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Video> getVideoById(@PathVariable Integer Id){
-        Video video = videoService.showById(Id);
-        return new ResponseEntity<>(video, HttpStatus.OK);
+    @GetMapping("/{videoId}")
+    public ResponseEntity<Video> getVideoById(@PathVariable Integer videoId){
+        Video video = videoService.showById(videoId);
+        if (video != null) {
+            return new ResponseEntity<>(video, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping
     public ResponseEntity<Video> create(@RequestBody Video video){
         Video newVideo = videoService.create(video);
-        return new ResponseEntity<>(video, HttpStatus.CREATED);
+        return new ResponseEntity<>(newVideo, HttpStatus.CREATED);
     }
 
     @PutMapping
@@ -43,9 +45,9 @@ public class VideoController {
         return new ResponseEntity<>(newVideo, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@RequestBody Video video){
-        videoService.delete(video);
+    @DeleteMapping("/{videoId}")
+    public ResponseEntity<Video> delete(@PathVariable Integer videoId){
+        videoService.delete(videoId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
