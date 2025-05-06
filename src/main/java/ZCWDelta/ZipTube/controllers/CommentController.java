@@ -22,6 +22,16 @@ public class CommentController {
         this.service = service;
     }
 
+    @GetMapping
+    @ResponseBody
+    public ResponseEntity<Iterable<Comment>> getComments() {
+        Iterable<Comment> comments = service.getAllComments();
+        if (comments == null) {
+            return new ResponseEntity<Iterable<Comment>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<Iterable<Comment>>(comments, HttpStatus.OK);
+    }
+
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Iterable<Comment>> getAllComments() {
