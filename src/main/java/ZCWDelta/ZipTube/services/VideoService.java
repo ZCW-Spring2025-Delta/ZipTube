@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,8 +20,9 @@ public class VideoService {
     public Iterable<Video> showAll() {
         return videoRepo.findAll();
     }
-    public Video getVideoById(Integer videoId) {
-        return videoRepo.getReferenceById(videoId);
+    public List<Video> getVideosByUserId(Integer userId) {
+       return videoRepo.findAllById(Collections.singleton(userId));
+
     }
 
     public Video showById(Integer videoId) {

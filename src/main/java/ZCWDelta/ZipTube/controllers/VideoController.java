@@ -7,6 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/video")
@@ -31,6 +34,18 @@ public class VideoController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/favorites/{userId}")
+    public ResponseEntity<Iterable<Video>> getVideosFavorites(@PathVariable Integer userId){
+        List<Video> videos = videoService.getVideosByUserId(userId);
+        List<Video> favorites = new ArrayList<>();
+        for (Video video: videos){
+            if (video.getFavorite()){
+                favorites.add(video);
+            }
+        }
+        return new ResponseEntity<>(favorites, HttpStatus.OK);
     }
 
     @PostMapping
