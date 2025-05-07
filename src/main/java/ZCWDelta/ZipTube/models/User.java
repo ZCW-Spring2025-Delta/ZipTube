@@ -1,13 +1,15 @@
 package ZCWDelta.ZipTube.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "users")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator="seq")
+    @GenericGenerator(name="seq", strategy = "increment")
     @Column(name = "id")
     private Integer id;
 

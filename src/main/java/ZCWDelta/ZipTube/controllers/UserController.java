@@ -2,6 +2,7 @@ package ZCWDelta.ZipTube.controllers;
 
 import ZCWDelta.ZipTube.UserNotFoundException;
 import ZCWDelta.ZipTube.models.User;
+import ZCWDelta.ZipTube.models.Video;
 import ZCWDelta.ZipTube.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
