@@ -38,9 +38,9 @@ public class User {
     private Integer commentId;
 
 //    @Column(name = "user_library_id")
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "userLibrary", referencedColumnName = "id")
-    private UserLibrary userLibraryId;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "userLibrary", referencedColumnName = "id")
+//    private UserLibrary userLibraryId;
 
     public User(){
         //default constructor
@@ -57,19 +57,6 @@ public class User {
         this.commentId = commentId;
     }
 
-    //Current constructor. Subject to change
-    public User (Integer id, String username, String firstName, String lastName, String email, String password, Integer commentId, UserLibrary userLibraryId) {
-        this.id = id;
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-//        this.favorites = favorites;
-//        this.Upload = upload;
-        this.commentId = commentId;
-        this.userLibraryId = userLibraryId;
-    }
 
     public Integer getId() {
         return id;
@@ -143,11 +130,11 @@ public class User {
         this.commentId = commentId;
     }
 
-    public UserLibrary getUserLibraryId() {
-        return userLibraryId;
-    }
+//    public UserLibrary getUserLibraryId() {
+//        return userLibraryId;
+//    }
 
-    public void setUserLibraryId(UserLibrary userLibraryId) {
-        this.userLibraryId = userLibraryId;
-    }
+//    public void setUserLibraryId(UserLibrary userLibraryId) {
+//        this.userLibraryId = userLibraryId;
+//    }
 }

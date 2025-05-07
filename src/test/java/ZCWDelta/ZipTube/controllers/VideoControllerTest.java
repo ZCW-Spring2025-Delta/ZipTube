@@ -33,7 +33,7 @@ public class VideoControllerTest {
     @Test
     public void testShowById() throws Exception {
         Integer givenId = 1;
-        Video video = new Video(givenId, "Spring Boot", null, true, "2023", "https://youtu.be/x", null, null);
+        Video video = new Video(givenId, "Spring Boot", null, true, true, "2023", "https://youtu.be/x", null, null);
         BDDMockito
                 .given(service.showById(givenId))
                 .willReturn(video);
@@ -46,7 +46,7 @@ public class VideoControllerTest {
 
     @Test
     void testGetVideoById_found() throws Exception {
-        Video video = new Video(1, "Spring Boot", null, true, "2023", "url", null, null);
+        Video video = new Video(1, "Spring Boot", null, true, true, "2023", "url", null, null);
         BDDMockito.given(service.showById(1)).willReturn(video);
 
         mvc.perform(get("/video/1"))
@@ -63,8 +63,8 @@ public class VideoControllerTest {
 
     @Test
     void testCreateVideo() throws Exception {
-        Video input = new Video(null, "Create Test", null, false, "2024", "url", null, null);
-        Video saved = new Video(5, "Create Test", null, false, "2024", "url", null, null);
+        Video input = new Video(null, "Create Test", null, false, false, "2024", "url", null, null);
+        Video saved = new Video(5, "Create Test", null, false,false, "2024", "url", null, null);
 
         BDDMockito.given(service.create(any(Video.class))).willReturn(saved);
 
@@ -87,8 +87,8 @@ public class VideoControllerTest {
 
     @Test
     public void testGetAllVideos() throws Exception {
-        Video v1 = new Video(1, "Test 1", null, false, "2022", "url1", null, null);
-        Video v2 = new Video(2, "Test 2", null, true, "2023", "url2", null, null);
+        Video v1 = new Video(1, "Test 1", null, false, false, "2022", "url1", null, null);
+        Video v2 = new Video(2, "Test 2", null, true, true, "2023", "url2", null, null);
 
         BDDMockito.given(service.showAll()).willReturn(Arrays.asList(v1, v2));
 
@@ -100,7 +100,7 @@ public class VideoControllerTest {
 
     @Test
     void testUpdateVideo() throws Exception {
-        Video updated = new Video(1, "Updated", null, true, "2025", "url", null, null);
+        Video updated = new Video(1, "Updated", null, true, true, "2025", "url", null, null);
         BDDMockito.given(service.update(BDDMockito.eq(1), any())).willReturn(updated);
 
         String updateJson = """
