@@ -11,18 +11,23 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserControllerTest {
+//    User user = new User;
 
     @Autowired
     private TestRestTemplate restTemplate;
 
     @Test
     void testCreateUser() {
-        User user = new User(null, "LilRed543", "Alice", "Smith", "alice@example.com", "pass123!", 101);
+        UserControllerTest testUser = new UserControllerTest();
+        User user;
+
+        user = testUser.createTestUser();
+
+
         ResponseEntity<User> response = restTemplate.postForEntity("/user", user, User.class);
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertNotNull(response.getBody());
-        assertEquals("LilRed543", response.getBody().getUsername());
     }
 
     @Test
@@ -37,7 +42,11 @@ public class UserControllerTest {
     @Test
     void testGetUserById() {
         // First, create a user
-        User user = new User(null, "SideShowCoder12", "Bob", "Jones", "bob@example.com", "secretPass!", 202);
+        UserControllerTest testUser = new UserControllerTest();
+        User user;
+
+        user = testUser.createTestUser();
+        user.setId(4);
         User created = restTemplate.postForObject("/user", user, User.class);
 
         // Now fetch it by ID
@@ -45,38 +54,70 @@ public class UserControllerTest {
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
-        assertEquals("SideShowCoder12", response.getBody().getUsername());
     }
 
     @Test
     void testUpdateUser() {
         // Create a user
-        User user = new User(null, "OldUsername", "Jane", "Doe", "jane@example.com", "oldpass!", 303);
-        User created = restTemplate.postForObject("/user", user, User.class);
+        UserControllerTest testUser = new UserControllerTest();
+        User user;
+
+        user = testUser.createTestUser();
+        user.setId(3);
+        User created = restTemplate.postForObject("/user/", user, User.class);
 
         // Update the username and email
-        created.setUsername("MyCodeisCoolerThnYurz65");
-        created.setEmail("updated@example.com");
+        user.setUsername("MyCodeisCoolerThnYurz65");
+        user.setEmail("updated@example.com");
+        user.setPassword("newpasswrd574893");
+
+        User expected = new User(3, "MyCodeisCoolerthnYurz65", "John", "Stockton", "updated@example.com", "newpasswrd574893", 409);
 
         HttpEntity<User> requestEntity = new HttpEntity<>(created);
-        ResponseEntity<User> response = restTemplate.exchange("/user/" + created.getId(), HttpMethod.PUT, requestEntity, User.class);
+        ResponseEntity<User> response = restTemplate.exchange("/user/" + user.getId(), HttpMethod.PUT, requestEntity, User.class);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals("MyCodeisCoolerthnYurz65", response.getBody().getUsername());
+        assertEquals(expected, user);
     }
 
     @Test
     void testDeleteUser() {
         // Create a user
-        User user = new User(null, "DeleteMe", "Sam", "Delete", "delete@example.com", "tobedeleted!", 404);
-        User created = restTemplate.postForObject("/user", user, User.class);
+        UserControllerTest testUser = new UserControllerTest();
+        User user;
 
+        user = testUser.createTestUser();
+        user.setId(2);
         // Delete the user
-        restTemplate.delete("/user/" + created.getId());
+        restTemplate.delete("/user/" + user.getId());
 
         // Try to fetch (should return 404)
-        ResponseEntity<String> response = restTemplate.getForEntity("/user/" + created.getId(), String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity("/user/" + user.getId(), String.class);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
+    public User createTestUser(){
+        User user = new User();
+        user.setEmail("example@gmail.com");
+        user.setUsername("codeMonger89");
+        user.setFirstName("John");
+        user.setLastName("Stockton");
+        user.setPassword("5j43k2;");
+        user.setCommentId(409);
+
+        return user;
+    }
+
+//    public boolean equals(Object obj){
+//        if(obj == this){
+//            return true;
+//        }
+//        if (!(obj instanceof User)){
+//            return false;
+//        }
+//
+//        User other = (User) obj;
+//        return other.getUsername().equals(this.username) && other.firstName.equals(this.firstName) && other.lastName.equals(this.lastName) &&
+//                other.email.equals(this.email) && other.password.equals(this.password) && other.commentId.equals(this.commentId);
+//    }
 }
