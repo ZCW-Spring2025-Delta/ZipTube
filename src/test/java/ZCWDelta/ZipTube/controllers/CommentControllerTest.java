@@ -100,7 +100,7 @@ public class CommentControllerTest {
         Video video = new Video();
         Comment comment = new Comment("String", null, video);
         testTemplate.postForObject("/comments", comment, Comment.class);
-        testTemplate.delete("comments/video/" + comment.getVideoId().getVideoId());
+        testTemplate.delete("/comments/video/" + comment.getVideoId().getVideoId());
 
         ResponseEntity<Void> response = testTemplate.getForEntity("/comments/video/"
                 + comment.getVideoId().getVideoId() + "/", Void.class);

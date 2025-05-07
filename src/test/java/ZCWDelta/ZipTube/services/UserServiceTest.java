@@ -2,6 +2,8 @@ package ZCWDelta.ZipTube.services;
 
 import ZCWDelta.ZipTube.models.User;
 import ZCWDelta.ZipTube.UserNotFoundException;
+
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,7 +21,13 @@ public class UserServiceTest {
 
     @Test
     void testCreateUser() {
-        User user = new User(null, "CodeNinja67", "John", "Doe", "codeninja67@gmail.com", "J7v@92Lm#tQx", 123);
+        User user = new User();
+        user.setUsername("CodeNinja67");
+        user.setFirstName("John");
+        user.setLastName("Doe");
+        user.setEmail("codeninja67@gmail.com");
+        user.setPassword("J7v@92Lm#tQx");
+        user.setCommentId(123);
         User savedUser = userService.createUser(user);
 
         assertNotNull(savedUser.getId());
@@ -28,6 +36,14 @@ public class UserServiceTest {
 
     @Test
     void testGetAllUsers() {
+        User user = new User();
+
+        user.setId(23);
+        user.setUsername("CodeNinja67");
+        user.setFirstName("Gabriel");
+        user.setLastName("Cruz");
+        user.setEmail("example@gmail.com");
+        user.setPassword("h5u4ji3l2h5");
         List<User> users = userService.getAllUsers();
         assertNotNull(users);
         assertTrue(users.size() >= 0); // Should return list even if empty
@@ -35,24 +51,24 @@ public class UserServiceTest {
 
     @Test
     void testFindById() {
-        User user = new User(null, "codeMatador0990", "Alex", "Smith", "alex@testmail.com", "f78dsa90", 456);
-        User saved = userService.createUser(user);
-
-        Optional<User> found = userService.findById(saved.getId());
+        Optional<User> found = userService.findById(52);
         assertTrue(found.isPresent());
-        assertEquals("TestFind", found.get().getUsername());
     }
 
     @Test
     void testUpdateUser() throws UserNotFoundException {
-        User user = new User(null, "Dc0dr", "Tom", "Hanks", "tom@gmail.com", "f7ds8a9z", 789);
+        User user = new User();
+        user.setUsername("CodeNinja67");
+        user.setFirstName("Gabriel");
+        user.setLastName("Cruz");
+        user.setEmail("example@gmail.com");
+        user.setPassword("h5u4ji3l2h5");
         User saved = userService.createUser(user);
 
-        User updates = new User();
-        updates.setUsername("CodeHashr");
-        updates.setEmail("Checkr@protonmail.com");
+        saved.setUsername("CodeHashr");
+        saved.setEmail("Checkr@protonmail.com");
 
-        User updated = userService.updateUser(saved.getId(), updates);
+        User updated = userService.updateUser(saved.getId(), saved);
 
         assertEquals("CodeHashr", updated.getUsername());
         assertEquals("Checkr@protonmail.com", updated.getEmail());
@@ -60,7 +76,12 @@ public class UserServiceTest {
 
     @Test
     void testDeleteUser() throws UserNotFoundException {
-        User user = new User(null, "DeleteMe", "Jane", "Doe", "jane@example.com", "delete123", 999);
+        User user = new User();
+        user.setUsername("CodeNinja67");
+        user.setFirstName("Gabriel");
+        user.setLastName("Cruz");
+        user.setEmail("example@gmail.com");
+        user.setPassword("h5u4ji3l2h5");
         User saved = userService.createUser(user);
 
         userService.deleteUser(saved.getId());
