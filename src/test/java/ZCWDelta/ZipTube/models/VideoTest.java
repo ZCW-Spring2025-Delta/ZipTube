@@ -17,12 +17,13 @@ public class VideoTest {
         Integer id = 1;
         String videoName = "movie of the year";
         String query = "documentary";
-        Boolean favorite = true;
+        Boolean favorite = false;
+        Boolean uploaded = false;
         String year = "12-11-2022";
         String url = "www.hereisthevideo.com";
-        UserLibrary userLibrary = new UserLibrary();
+        User user = new User();
         Integer commentId = 2;
-      video = new Video(id, videoName,query, favorite, year, url, userLibrary, commentId);
+      video = new Video(id, videoName,query, favorite,uploaded, year, url, user, commentId);
     }
     @Test
     public void testGettersAndSettersId(){

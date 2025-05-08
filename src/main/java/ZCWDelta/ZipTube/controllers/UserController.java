@@ -1,6 +1,7 @@
 package ZCWDelta.ZipTube.controllers;
 
 import ZCWDelta.ZipTube.UserNotFoundException;
+import ZCWDelta.ZipTube.UserRegistrationDTO;
 import ZCWDelta.ZipTube.models.User;
 import ZCWDelta.ZipTube.models.Video;
 import ZCWDelta.ZipTube.services.UserService;
@@ -8,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -65,4 +69,34 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    //login purpose
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody Map<String, String> payload) {
+        String username = payload.get("username");
+        String password = payload.get("password");
+
+        return userService.login(username, password)
+                .map(user -> ResponseEntity.ok(Map.of(
+                        "message", "Login successful",
+                        "userId", user.getId(),
+                        "username", user.getUsername()
+                )))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body(Map.of("error", "Invalid credentials")));
+
+    }
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody User user) {
+        if (userService.exists(user.getUsername())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(Map.of("error", "Username already taken"));
+        }
+
+        User saved = userService.register(user);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(Map.of("message", "Registered successfully", "userId", saved.getId()));
+    }
+
+
 }

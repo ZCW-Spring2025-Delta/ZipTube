@@ -1,11 +1,16 @@
 package ZCWDelta.ZipTube.services;
 
+import ZCWDelta.ZipTube.VideoDTO;
+import ZCWDelta.ZipTube.models.User;
 import ZCWDelta.ZipTube.models.Video;
+import ZCWDelta.ZipTube.repos.UserRepo;
 import ZCWDelta.ZipTube.repos.VideoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -13,20 +18,46 @@ import java.util.Optional;
 public class VideoService {
 
     @Autowired
-    VideoRepo videoRepo;
+    private VideoRepo videoRepo;
 
-    public Iterable<Video> showAll() {
+    @Autowired
+    private UserRepo userRepo;
+
+    public List<Video> showAll() {
         return videoRepo.findAll();
     }
-    public Video getVideoById(Integer videoId) {
-        return videoRepo.getReferenceById(videoId);
+    public List<Video> getVideosByUser(String  username) {
+       return videoRepo.findByUploaderUsername(username);
     }
 
-    public Video showById(Integer videoId) {
-        return videoRepo.findById(videoId).get();
+    public Optional<Video> getVideoById(Integer videoId) {
+        return videoRepo.findById(videoId);
     }
 
-    public Video create(Video video) {
+    public List<Video> getFavoritesByUser(Integer userId) {
+        return videoRepo.findByUploaderIdAndFavoriteTrue(userId);
+    }
+
+    public Video toggleFavorite(Integer videoId) {
+        Video video = videoRepo.findById(videoId).orElseThrow();
+        video.setFavorite(!video.getFavorite());
+        return videoRepo.save(video);
+    }
+//create new video by user logged in
+    public Video createVideo(VideoDTO videoDTO, String username) {
+        User user = userRepo.findByUsername(username)
+                .orElseThrow(()-> new RuntimeException("User not Found"));
+
+        Video video = new Video();
+        video.setVideoName(videoDTO.getVideoName());
+        video.setQuery(videoDTO.getQuery());
+        video.setURL(videoDTO.getURL());
+        video.setUploaded(true);
+        video.setFavorite(false);
+        video.setYear(videoDTO.getYear());
+        video.setUser(user);
+        video.setCommentId(videoDTO.getCommentId());
+
         return videoRepo.save(video);
     }
 
@@ -37,18 +68,16 @@ public class VideoService {
         originalVideo.setURL(video.getURL());
         originalVideo.setYear(video.getYear());
         originalVideo.setFavorite(video.getFavorite());
+        originalVideo.setUploaded(video.getUploaded());
         return videoRepo.save(originalVideo);
     }
 
-    public Boolean delete(Integer videoId) {
-        Optional<Video> itemOptional = videoRepo.findById(videoId);
+    public Video save(Video video) {
+        return videoRepo.save(video);
+    }
 
-        if (itemOptional.isPresent()) {
-            videoRepo.deleteById(videoId);
-            return true; // successfully deleted
-        } else {
-            return false; // no item found to delete
-        }
+    public void delete(Video video) {
+        videoRepo.delete(video);
     }
 
 
