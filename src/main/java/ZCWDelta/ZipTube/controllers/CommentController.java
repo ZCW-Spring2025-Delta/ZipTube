@@ -24,32 +24,32 @@ public class CommentController {
 
     @GetMapping
     @ResponseBody
-    public ResponseEntity<Iterable<Comment>> getComments() {
-        Iterable<Comment> comments = service.getAllComments();
+    public ResponseEntity<Comment[]> getComments() {
+        Comment[] comments = service.getAllComments();
         if (comments == null) {
-            return new ResponseEntity<Iterable<Comment>>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<Comment[]>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<Iterable<Comment>>(comments, HttpStatus.OK);
+        return new ResponseEntity<Comment[]>(comments, HttpStatus.OK);
     }
 
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Iterable<Comment>> getAllComments() {
-        Iterable<Comment> comments = service.getAllComments();
+    public ResponseEntity<Comment[]> getAllComments() {
+        Comment[] comments = service.getAllComments();
         if (comments == null) {
-            return new ResponseEntity<Iterable<Comment>>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<Comment[]>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<Iterable<Comment>>(comments, HttpStatus.OK);
+        return new ResponseEntity<Comment[]>(comments, HttpStatus.OK);
     }
 
     @GetMapping("/video/{videoId}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Iterable<Comment>> getByVideo(@PathVariable("videoId") Video videoId) {
-        Iterable<Comment> byVideo = service.findByVideoId(videoId);
+    public ResponseEntity<Comment[]> getByVideo(@PathVariable("videoId") Video videoId) {
+        Comment[] byVideo = service.findByVideoId(videoId);
         if (byVideo == null) {
-            return new ResponseEntity<Iterable<Comment>>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<Comment[]>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<Iterable<Comment>>(byVideo, HttpStatus.OK);
+        return new ResponseEntity<Comment[]>(byVideo, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -62,15 +62,15 @@ public class CommentController {
         return new ResponseEntity<Comment>(service.show(id), HttpStatus.OK);
     }
 
-    @GetMapping("/user/{userId}")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Iterable<Comment>> getByUser(@PathVariable("userId") User userId) {
-        Iterable<Comment> byUsers = service.findByUserId(userId);
-        if (byUsers == null) {
-            return new ResponseEntity<Iterable<Comment>>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<Iterable<Comment>>(byUsers, HttpStatus.OK);
-    }
+//    @GetMapping("/user/{userId}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public ResponseEntity<Comment[]> getByUser(@PathVariable("userId") User userId) {
+//        Comment[] byUsers = service.findByUserId(userId);
+//        if (byUsers == null) {
+//            return new ResponseEntity<Comment[]>(HttpStatus.NO_CONTENT);
+//        }
+//        return new ResponseEntity<Comment[]>(byUsers, HttpStatus.OK);
+//    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
