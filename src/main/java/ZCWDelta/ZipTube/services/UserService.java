@@ -1,6 +1,7 @@
 package ZCWDelta.ZipTube.services;
 
 import ZCWDelta.ZipTube.UserNotFoundException;
+import ZCWDelta.ZipTube.UserRegistrationDTO;
 import ZCWDelta.ZipTube.models.User;
 import ZCWDelta.ZipTube.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class UserService {
     public User createUser(User user) {
         return userRepository.save(user);
     }
+
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -53,6 +55,17 @@ public class UserService {
             throw new UserNotFoundException("User not found with id: " + id);
         }
         userRepository.deleteById(id);
+    }
+
+    //For sign in
+    public Optional<User> login(String username, String password) {
+        return userRepository.findByUsernameAndPassword(username, password);
+    }
+    public boolean exists(String username) {
+        return userRepository.existsByUsername(username);
+    }
+    public User register(User user) {
+        return userRepository.save(user);
     }
 }
 

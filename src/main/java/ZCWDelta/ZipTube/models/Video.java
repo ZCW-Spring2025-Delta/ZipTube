@@ -20,38 +20,42 @@ public class Video {
     @Column(name = "favorite")
     private Boolean favorite;
 
+    @Column(name = "uploaded")
+    private Boolean uploaded;
+
     @Column(name = "video_year")
     private String year;
 
     @Column(name = "URL")
     private String URL;
 
-//    @Column(name = "user_library_id")
-//    private Integer user_Library_id;
-
     @Column(name = "comment_id")
     private Integer commentId;
 
     //Uploaded by (many-to-one)
     @ManyToOne
-    @JoinColumn(name = "userLibrary")
-    private UserLibrary userLibrary;
+    @JoinColumn(name = "uploader")
+    private User uploader;
 
 
     public Video() {
         //default constructor
     }
 
-    public Video(Integer videoId, String videoName, String query, Boolean favorite, String year, String URL, UserLibrary userLibrary, Integer commentId) {
+
+    public Video(Integer videoId, String videoName, String query, Boolean favorite, Boolean uploaded, String year, String URL, User user, Integer commentId) {
         this.videoId = videoId;
         this.videoName = videoName;
         this.query = query;
         this.favorite = favorite;
+        this.uploaded = uploaded;
         this.year = year;
         this.URL = URL;
-        this.userLibrary = userLibrary;
+        this.uploader = user;
         this.commentId = commentId;
     }
+
+
 
     public Integer getVideoId() {
         return videoId;
@@ -101,12 +105,12 @@ public class Video {
         this.URL = URL;
     }
 
-    public UserLibrary getUserLibrary() {
-        return this.userLibrary;
+    public User getUser() {
+        return this.uploader;
     }
 
-    public void setUserLibrary(UserLibrary userLibrary) {
-        this.userLibrary = userLibrary;
+    public void setUser(User user) {
+        this.uploader = user;
     }
 
     public Integer getCommentId() {
@@ -116,4 +120,13 @@ public class Video {
     public void setCommentId(Integer commentId) {
         this.commentId = commentId;
     }
+
+    public Boolean getUploaded() {
+        return uploaded;
+    }
+
+    public void setUploaded(Boolean uploaded) {
+        this.uploaded = uploaded;
+    }
+
 }

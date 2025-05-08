@@ -13,5 +13,8 @@ public class WebConfiguration implements WebMvcConfigurer {
                 .allowedOrigins("http://127.0.0.1:5501") // adjust to your frontend port
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*");
+
     }
+
+
 }
