@@ -24,32 +24,32 @@ public class CommentService {
         this.repo = repo;
     }
 
-    public List<Comment> getAllComments() {
-        return repo.findAll();
+    public Comment[] getAllComments() {
+        return repo.findAll().toArray(new Comment[0]);
     }
 
     public Comment show(Integer id) {
         return repo.findById(id).get();
     }
 
-    public List<Comment> findByVideoId(Video videoId) {
+    public Comment[] findByVideoId(Video videoId) {
         ArrayList<Comment> comments = new ArrayList<>();
         for (Comment comment : repo.findAll()) {
             if (Objects.equals(comment.getVideoId().getVideoId(), videoId.getVideoId())) {
                 comments.add(comment);
             }
         }
-        return comments;
+        return comments.toArray(new Comment[0]);
     }
 
-    public List<Comment> findByUserId(User userId) {
+    public Comment[] findByUserId(User userId) {
         ArrayList<Comment> comments = new ArrayList<>();
         for (Comment comment : repo.findAll()) {
             if (Objects.equals(comment.getUserId().getId(), userId.getId())) {
                 comments.add(comment);
             }
         }
-        return comments;
+        return comments.toArray(new Comment[0]);
     }
 
     public Comment create(Comment comment) {
@@ -62,14 +62,14 @@ public class CommentService {
     }
 
     public Boolean deleteByUser(User userId) {
-        List<Comment> comments = findByUserId(userId);
-        repo.deleteAll(comments);
+        Comment[] comments = findByUserId(userId);
+        repo.deleteAll(List.of(comments));
         return true;
     }
 
     public Boolean deleteByVideo(Video videoId) {
-        List<Comment> comments = findByVideoId(videoId);
-        repo.deleteAll(comments);
+        Comment[] comments = findByVideoId(videoId);
+        repo.deleteAll(List.of(comments));
         return true;
     }
 
