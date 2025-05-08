@@ -45,6 +45,15 @@ public class VideoController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+    @GetMapping("/favorites/{userId}")
+    public ResponseEntity<List<Video>> getUserFavorites(@PathVariable Integer userId) {
+        return ResponseEntity.ok(videoService.getFavoritesByUser(userId));
+    }
+
+    @PostMapping("/{videoId}/toggle-favorite")
+    public ResponseEntity<Video> toggleFavorite(@PathVariable Integer videoId) {
+        return ResponseEntity.ok(videoService.toggleFavorite(videoId));
+    }
 
     @PostMapping
     public ResponseEntity<Video> create(@RequestBody VideoDTO videoDTO){
@@ -52,7 +61,7 @@ public class VideoController {
         return new ResponseEntity<>(video, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{videoId")
+    @PutMapping("/{videoId}")
     public ResponseEntity<Video> update(@PathVariable Integer videoId, @RequestBody VideoDTO videoDTO){
         String username = getCurrentUsername();
         Optional<Video> optionalVideo = videoService.getVideoById(videoId);

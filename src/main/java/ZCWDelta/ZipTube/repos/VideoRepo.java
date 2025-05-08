@@ -7,4 +7,7 @@ import java.util.List;
 
 public interface VideoRepo extends JpaRepository<Video, Integer> {
     List<Video> findByUploaderUsername(String username);
+    List<Video> findByUploaderId(Integer userId);
+
+    List<Video> findByUploaderIdAndFavoriteTrue(Integer userId);
 }

@@ -34,6 +34,15 @@ public class VideoService {
         return videoRepo.findById(videoId);
     }
 
+    public List<Video> getFavoritesByUser(Integer userId) {
+        return videoRepo.findByUploaderIdAndFavoriteTrue(userId);
+    }
+
+    public Video toggleFavorite(Integer videoId) {
+        Video video = videoRepo.findById(videoId).orElseThrow();
+        video.setFavorite(!video.getFavorite());
+        return videoRepo.save(video);
+    }
 //create new video by user logged in
     public Video createVideo(VideoDTO videoDTO, String username) {
         User user = userRepo.findByUsername(username)
