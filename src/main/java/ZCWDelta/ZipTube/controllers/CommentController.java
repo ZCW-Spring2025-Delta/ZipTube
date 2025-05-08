@@ -62,15 +62,15 @@ public class CommentController {
         return new ResponseEntity<Comment>(service.show(id), HttpStatus.OK);
     }
 
-    @GetMapping("/user/{userId}")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Comment[]> getByUser(@PathVariable("userId") User userId) {
-        Comment[] byUsers = service.findByUserId(userId);
-        if (byUsers == null) {
-            return new ResponseEntity<Comment[]>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<Comment[]>(byUsers, HttpStatus.OK);
-    }
+//    @GetMapping("/user/{userId}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public ResponseEntity<Comment[]> getByUser(@PathVariable("userId") User userId) {
+//        Comment[] byUsers = service.findByUserId(userId);
+//        if (byUsers == null) {
+//            return new ResponseEntity<Comment[]>(HttpStatus.NO_CONTENT);
+//        }
+//        return new ResponseEntity<Comment[]>(byUsers, HttpStatus.OK);
+//    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
