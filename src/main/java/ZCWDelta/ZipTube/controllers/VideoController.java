@@ -23,7 +23,7 @@ public class VideoController {
     // Simulating authentication
     private String getCurrentUsername() {
         // Replace this with actual logic from Spring Security
-        return "isaac123"; // Example: SecurityContextHolder.getContext().getAuthentication().getName();
+        return "lemon"; // Example: SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
     public VideoController(VideoService videoService){
@@ -78,8 +78,8 @@ public class VideoController {
         video.setQuery(videoDTO.getQuery());
         video.setURL(videoDTO.getURL());
         video.setYear(videoDTO.getYear());
-        video.setFavorite(Boolean.TRUE.equals(videoDTO.getFavorite()));
-        video.setUploaded(Boolean.TRUE.equals(videoDTO.getUploaded()));
+        video.setFavorite(videoDTO.getFavorite());
+        video.setUploaded(videoDTO.getUploaded());
 
         return  new ResponseEntity<>(videoService.update(videoId, video), HttpStatus.OK);
 
