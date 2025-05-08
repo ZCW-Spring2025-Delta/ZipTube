@@ -4,11 +4,13 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.*;
 import com.amazonaws.HttpMethod;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.net.URL;
 import java.util.Date;
 
+@Component
 public class S3Client {
 
     private final AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
