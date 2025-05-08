@@ -67,8 +67,8 @@ public class VideoService {
         originalVideo.setQuery(video.getQuery());
         originalVideo.setURL(video.getURL());
         originalVideo.setYear(video.getYear());
-        originalVideo.setFavorite(video.getFavorite());
-        originalVideo.setUploaded(video.getUploaded());
+        originalVideo.setFavorite(Boolean.TRUE.equals(video.getFavorite()));
+        originalVideo.setUploaded(Boolean.TRUE.equals(video.getUploaded()));
         return videoRepo.save(originalVideo);
     }
 
