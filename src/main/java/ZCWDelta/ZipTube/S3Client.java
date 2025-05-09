@@ -1,17 +1,20 @@
 package ZCWDelta.ZipTube;
 
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.*;
 import com.amazonaws.HttpMethod;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.net.URL;
 import java.util.Date;
 
+@Component
 public class S3Client {
 
-    private final AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
+    private final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_2).build();
 
     // Create an S3 bucket
     public void createBucket(String bucketName) {
@@ -35,13 +38,9 @@ public class S3Client {
 
     // Generate pre-signed URL to share an S3 object
     public URL generatePresignedUrl(String bucketName, String key) {
-//        Date expiration = new Date();
-//        long expTimeMillis = expiration.getTime();
-//        expTimeMillis += 1000 * 60 * 60; // Add 1 hour.
-//        expiration.setTime(expTimeMillis);
         Date expiration = new Date();
         long expTimeMillis = expiration.getTime();
-        expTimeMillis += 1000 * 60 * 60 * 8;
+        expTimeMillis += 1000 * 60 * 60; // Add 1 hour.
         expiration.setTime(expTimeMillis);
 
         GeneratePresignedUrlRequest generatePresignedUrlRequest =
