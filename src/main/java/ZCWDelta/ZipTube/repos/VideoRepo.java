@@ -10,4 +10,6 @@ public interface VideoRepo extends JpaRepository<Video, Integer> {
     List<Video> findByUploaderId(Integer userId);
 
     List<Video> findByUploaderIdAndFavoriteTrue(Integer userId);
+
+    List<Video> findByQueryContainingIgnoreCase(String query);
 }
