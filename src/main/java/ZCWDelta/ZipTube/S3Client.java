@@ -53,15 +53,3 @@ public class S3Client {
         return s3.generatePresignedUrl(generatePresignedUrlRequest);
     }
 }
-// The key steps are:
-
-// 1. Create an S3Client object to interact with S3
-// 2. Call createBucket() to create a new S3 bucket
-// 3. Upload objects using putObject(), specifying bucket name, key, and file
-// 4. Download objects using getObject(), specifying bucket name, key, and target file
-// 5. List objects in a bucket using listObjects()
-// 6. Generate a pre-signed URL using generatePresignedUrl() by specifying bucket,
-// key, expiration date, and HTTP method.
-
-// The pre-signed URL allows temporary access to private S3 objects without requiring AWS credentials.
-// The URL is only valid until the specified expiration date/time.
