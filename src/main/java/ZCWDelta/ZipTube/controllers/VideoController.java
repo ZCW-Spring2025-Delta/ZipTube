@@ -23,7 +23,7 @@ public class VideoController {
     // Simulating authentication
     private String getCurrentUsername() {
         // Replace this with actual logic from Spring Security
-        return "testUser"; // Example: SecurityContextHolder.getContext().getAuthentication().getName();
+        return "lemon"; // Example: SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
     public VideoController(VideoService videoService){
