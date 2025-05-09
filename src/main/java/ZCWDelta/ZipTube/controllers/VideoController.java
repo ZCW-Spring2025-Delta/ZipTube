@@ -50,6 +50,12 @@ public class VideoController {
         return ResponseEntity.ok(videoService.getFavoritesByUser(userId));
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<Video>> searchVideos(@RequestParam String query) {
+        List<Video> results = videoService.getVideosByQuery(query);
+        return ResponseEntity.ok(results);
+    }
+
     @PostMapping("/{videoId}/toggle-favorite")
     public ResponseEntity<Video> toggleFavorite(@PathVariable Integer videoId) {
         return ResponseEntity.ok(videoService.toggleFavorite(videoId));

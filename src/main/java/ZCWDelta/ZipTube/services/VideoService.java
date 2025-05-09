@@ -26,6 +26,10 @@ public class VideoService {
     public List<Video> showAll() {
         return videoRepo.findAll();
     }
+
+    public List<Video> getVideosByQuery(String query) {
+        return videoRepo.findByQueryContainingIgnoreCase(query); // or another version
+    }
     public List<Video> getVideosByUser(String  username) {
        return videoRepo.findByUploaderUsername(username);
     }
