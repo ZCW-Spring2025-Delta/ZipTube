@@ -10,11 +10,11 @@ import java.net.URL;
 public class ZipTubeApplication {
 
 	public static void main(String[] args) {
-		S3Client s3 = new S3Client();
-		String bucketName = "ziptubebucket";
-		s3.createBucket(bucketName);
-		URL unsignedURL = s3.generatePresignedUrl(bucketName, "/signin.html");
-		SpringApplication.run(ZipTubeApplication.class, args).getResource("s3://" + bucketName);
+//		S3Client s3 = new S3Client();
+//		String bucketName = "ziptubebucket";
+//		s3.createBucket(bucketName);
+//		URL unsignedURL = s3.generatePresignedUrl(bucketName, "");
+		SpringApplication.run(ZipTubeApplication.class, args); //.getResource("s3://" + bucketName);
 	}
 
 }
