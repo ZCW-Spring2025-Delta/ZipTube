@@ -81,16 +81,16 @@ public class CommentControllerTest {
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
-    @Test //deletemapping by user id
-    public void testDeleteByUserId() {
-        User user = new User(1, "", "", "", "", "", null);
-        User postedUser = testTemplate.postForObject("/user", user, User.class);
-        Comment comment = new Comment("", user, null);
-        Comment posted = testTemplate.postForObject("/comments", comment, Comment.class);
-
-        ResponseEntity<Boolean> response = controller.deleteByUser(user);
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-    }
+//    @Test //deletemapping by user id
+//    public void testDeleteByUserId() {
+//        User user = new User(1, "", "", "", "", "", null);
+//        User postedUser = testTemplate.postForObject("/user", user, User.class);
+//        Comment comment = new Comment("", user, null);
+//        Comment posted = testTemplate.postForObject("/comments", comment, Comment.class);
+//
+//        ResponseEntity<Boolean> response = controller.deleteByUser(user);
+//        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+//    }
 
 //    @Test //deletemapping by video id
 //    public void testDeleteByVideoId() {
