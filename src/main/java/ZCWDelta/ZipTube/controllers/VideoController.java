@@ -39,6 +39,12 @@ public class VideoController {
         return new ResponseEntity<>(videoService.getVideosByUser(getCurrentUsername()), HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<Video>> searchVideos(@RequestParam String query) {
+        List<Video> results = videoService.getVideosByQuery(query);
+        return ResponseEntity.ok(results);
+    }
+
     @GetMapping("/{videoId}")
     public ResponseEntity<Video> getVideosById(@PathVariable Integer videoId) {
         return videoService.getVideoById(videoId)
@@ -48,12 +54,6 @@ public class VideoController {
     @GetMapping("/favorites/{userId}")
     public ResponseEntity<List<Video>> getUserFavorites(@PathVariable Integer userId) {
         return ResponseEntity.ok(videoService.getFavoritesByUser(userId));
-    }
-
-    @GetMapping("/search")
-    public ResponseEntity<List<Video>> searchVideos(@RequestParam String query) {
-        List<Video> results = videoService.getVideosByQuery(query);
-        return ResponseEntity.ok(results);
     }
 
     @PostMapping("/{videoId}/toggle-favorite")
