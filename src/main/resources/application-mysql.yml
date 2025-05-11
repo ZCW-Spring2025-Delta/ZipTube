@@ -1,0 +1,15 @@
+#spring:
+#  datasource:
+#    url=jdbc:h2:file:./bookdb
+#    username=zip
+#    spring.datasource.password=code
+#    spring.jpa.hibernate.ddl-auto=update
+#    driverClassName=org.h2.Driver
+#  jpa:
+#    database.platform=org.hibernate.dialect.H2Dialect
+#    properties.hibernate.dialect=org.hibernate.dialect.H2Dialect
+#    show-sql=true
+#  h2:
+#    console.path=/h2-console
+#    console.enabled=true
+#
