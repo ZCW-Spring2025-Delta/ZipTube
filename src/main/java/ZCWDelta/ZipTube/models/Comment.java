@@ -16,12 +16,15 @@ public class Comment {
 
     //@Column(name = "UserId")
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "users", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User userId;
+
+    @Column
+    private String username;
 
     //@Column(name = "VideoId")
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "videos", referencedColumnName = "id")
+    @JoinColumn(name = "video_id", referencedColumnName = "id")
     private Video videoId;
 
     public Comment() {
@@ -31,6 +34,7 @@ public class Comment {
     public Comment(String text, User userId, Video videoId) {
         this.text = text;
         this.userId = userId;
+        this.username = userId.getUsername();
         this.videoId = videoId;
     }
 
@@ -39,6 +43,7 @@ public class Comment {
         this.id = id;
         this.text = text;
         this.userId = userId;
+        this.username = userId.getUsername();
         this.videoId = videoId;
     }
 
@@ -64,6 +69,14 @@ public class Comment {
 
     public void setUserId(User userId) {
         this.userId = userId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Video getVideoId() {
