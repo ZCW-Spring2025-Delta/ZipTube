@@ -52,6 +52,16 @@ public class CommentService {
         return comments.toArray(new Comment[0]);
     }
 
+    public Comment[] findByUsername(String username) {
+        ArrayList<Comment> comments = new ArrayList<>();
+        for (Comment comment : repo.findAll()) {
+            if (Objects.equals(comment.getUsername(), username)) {
+                comments.add(comment);
+            }
+        }
+        return comments.toArray(new Comment[0]);
+    }
+
     public Comment create(Comment comment) {
         return repo.save(comment);
     }

@@ -62,6 +62,16 @@ public class CommentController {
         return new ResponseEntity<Comment>(service.show(id), HttpStatus.OK);
     }
 
+    @GetMapping("/{username}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Comment[]> getCommentByUsername(@PathVariable("username") String username) {
+        Comment[] byUsername = service.findByUsername(username);
+        if (byUsername == null) {
+            return new ResponseEntity<Comment[]>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<Comment[]>(byUsername, HttpStatus.OK);
+    }
+
 //    @GetMapping("/user/{userId}")
 //    @ResponseStatus(HttpStatus.OK)
 //    public ResponseEntity<Comment[]> getByUser(@PathVariable("userId") User userId) {
