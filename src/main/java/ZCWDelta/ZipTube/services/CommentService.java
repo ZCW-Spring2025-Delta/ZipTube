@@ -77,11 +77,11 @@ public class CommentService {
 //        return true;
 //    }
 
-    public Boolean deleteByVideo(Integer videoId) {
-        Comment[] comments = findByVideoId(videoId);
-        repo.deleteAll(List.of(comments));
-        return true;
-    }
+//    public Boolean deleteByVideo(Integer videoId) {
+//        Comment[] comments = findByVideoId(videoId);
+//        repo.deleteAll(List.of(comments));
+//        return true;
+//    }
 
     public void cleanUp() {
         repo.deleteAll();
