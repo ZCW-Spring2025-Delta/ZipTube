@@ -32,7 +32,9 @@ public class VideoController {
             String username = request.getHeader("X-Username");
             return (username != null) ? username : "anonymous";
         }
-        return "anonymous";    }
+        return "anonymous";
+//        return "ike123";
+    }
 
     public VideoController(VideoService videoService){
         this.videoService = videoService;
