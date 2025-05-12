@@ -3,10 +3,13 @@ package ZCWDelta.ZipTube.controllers;
 import ZCWDelta.ZipTube.VideoDTO;
 import ZCWDelta.ZipTube.models.Video;
 import ZCWDelta.ZipTube.services.VideoService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +26,13 @@ public class VideoController {
     // Simulating authentication
     private String getCurrentUsername() {
         // Replace this with actual logic from Spring Security
-        return "lemon"; // Example: SecurityContextHolder.getContext().getAuthentication().getName();
-    }
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if (attr != null) {
+            HttpServletRequest request = attr.getRequest();
+            String username = request.getHeader("X-Username");
+            return (username != null) ? username : "anonymous";
+        }
+        return "anonymous";    }
 
     public VideoController(VideoService videoService){
         this.videoService = videoService;
@@ -39,6 +47,12 @@ public class VideoController {
         return new ResponseEntity<>(videoService.getVideosByUser(getCurrentUsername()), HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<Video>> searchVideos(@RequestParam String query) {
+        List<Video> results = videoService.getVideosByQuery(query);
+        return ResponseEntity.ok(results);
+    }
+
     @GetMapping("/{videoId}")
     public ResponseEntity<Video> getVideosById(@PathVariable Integer videoId) {
         return videoService.getVideoById(videoId)
@@ -48,12 +62,6 @@ public class VideoController {
     @GetMapping("/favorites/{userId}")
     public ResponseEntity<List<Video>> getUserFavorites(@PathVariable Integer userId) {
         return ResponseEntity.ok(videoService.getFavoritesByUser(userId));
-    }
-
-    @GetMapping("/search")
-    public ResponseEntity<List<Video>> searchVideos(@RequestParam String query) {
-        List<Video> results = videoService.getVideosByQuery(query);
-        return ResponseEntity.ok(results);
     }
 
     @PostMapping("/{videoId}/toggle-favorite")
