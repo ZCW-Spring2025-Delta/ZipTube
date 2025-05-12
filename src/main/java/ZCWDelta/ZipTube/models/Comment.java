@@ -21,26 +21,26 @@ public class Comment {
     private String text;
 
     //@Column(name = "UserId")
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User userId;
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "user_id", referencedColumnName = "id")
+//    private Integer userId;
 
     @Column
     private String username;
 
-    //@Column(name = "VideoId")
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "video_id", referencedColumnName = "id")
-    private Video videoId;
+    @Column(name = "VideoId")
+    //@ManyToOne(cascade = CascadeType.ALL)
+    //@JoinColumn(name = "video_id", referencedColumnName = "id")
+    private Integer videoId;
 
     public Comment() {
         //default constructor
     }
 
-    public Comment(String text, User userId, Video videoId) {
+    public Comment(String text, Integer userId, String username, Integer videoId) {
         this.text = text;
-        this.userId = userId;
-        this.username = userId.getUsername().toString();
+        //this.userId = userId;
+        this.username = username;
         this.videoId = videoId;
     }
 
@@ -52,11 +52,11 @@ public class Comment {
 //    }
 
     //For testing purposes
-    public Comment(Integer id, String text, User userId, Video videoId) {
+    public Comment(Integer id, String text, Integer userId, String username, Integer videoId) {
         this.id = id;
         this.text = text;
-        this.userId = userId;
-        this.username = userId.getUsername().toString();
+        //this.userId = userId;
+        this.username = username;
         this.videoId = videoId;
     }
 
@@ -76,13 +76,13 @@ public class Comment {
         this.text = text;
     }
 
-    public User getUserId() {
-        return userId;
-    }
-
-    public void setUserId(User userId) {
-        this.userId = userId;
-    }
+//    public Integer getUserId() {
+//        return userId;
+//    }
+//
+//    public void setUserId(Integer userId) {
+//        this.userId = userId;
+//    }
 
     public String getUsername() {
         return username;
@@ -92,11 +92,11 @@ public class Comment {
         this.username = username;
     }
 
-    public Video getVideoId() {
+    public Integer getVideoId() {
         return videoId;
     }
 
-    public void setVideoId(Video videoId) {
+    public void setVideoId(Integer videoId) {
         this.videoId = videoId;
     }
 }

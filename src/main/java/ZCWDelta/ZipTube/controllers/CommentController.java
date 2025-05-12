@@ -44,7 +44,7 @@ public class CommentController {
 
     @GetMapping("/video/{videoId}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Comment[]> getByVideo(@PathVariable("videoId") Video videoId) {
+    public ResponseEntity<Comment[]> getByVideo(@PathVariable("videoId") Integer videoId) {
         Comment[] byVideo = service.findByVideoId(videoId);
         if (byVideo == null) {
             return new ResponseEntity<Comment[]>(HttpStatus.NO_CONTENT);
@@ -82,7 +82,7 @@ public class CommentController {
 //        return new ResponseEntity<Comment[]>(byUsers, HttpStatus.OK);
 //    }
 
-    @PostMapping
+    @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Comment> writeComment(@RequestBody Comment comment) {
         return new ResponseEntity<Comment>(service.create(comment), HttpStatus.CREATED);
@@ -96,14 +96,14 @@ public class CommentController {
 
     @DeleteMapping("/video/{videoId}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Boolean> deleteByVideo(@PathVariable("videoId") Video videoId) {
+    public ResponseEntity<Boolean> deleteByVideo(@PathVariable("videoId") Integer videoId) {
         return new ResponseEntity<>(service.deleteByVideo(videoId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/user/{userId}")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Boolean> deleteByUser(@PathVariable("userId") User userId) {
-        return new ResponseEntity<>(service.deleteByUser(userId), HttpStatus.OK);
-    }
+//    @DeleteMapping("/user/{userId}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public ResponseEntity<Boolean> deleteByUser(@PathVariable("userId") User userId) {
+//        return new ResponseEntity<>(service.deleteByUser(userId), HttpStatus.OK);
+//    }
 
 }

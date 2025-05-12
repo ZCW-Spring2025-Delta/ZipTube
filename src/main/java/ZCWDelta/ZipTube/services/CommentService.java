@@ -32,25 +32,25 @@ public class CommentService {
         return repo.findById(id).get();
     }
 
-    public Comment[] findByVideoId(Video videoId) {
+    public Comment[] findByVideoId(Integer videoId) {
         ArrayList<Comment> comments = new ArrayList<>();
         for (Comment comment : repo.findAll()) {
-            if (Objects.equals(comment.getVideoId().getVideoId(), videoId.getVideoId())) {
+            if (Objects.equals(comment.getVideoId(), videoId)) {
                 comments.add(comment);
             }
         }
         return comments.toArray(new Comment[0]);
     }
 
-    public Comment[] findByUserId(User userId) {
-        ArrayList<Comment> comments = new ArrayList<>();
-        for (Comment comment : repo.findAll()) {
-            if (Objects.equals(comment.getUserId().getId(), userId.getId())) {
-                comments.add(comment);
-            }
-        }
-        return comments.toArray(new Comment[0]);
-    }
+//    public Comment[] findByUserId(User userId) {
+//        ArrayList<Comment> comments = new ArrayList<>();
+//        for (Comment comment : repo.findAll()) {
+//            if (Objects.equals(comment.getUserId(), userId.getId())) {
+//                comments.add(comment);
+//            }
+//        }
+//        return comments.toArray(new Comment[0]);
+//    }
 
     public Comment[] findByUsername(String username) {
         ArrayList<Comment> comments = new ArrayList<>();
@@ -71,13 +71,13 @@ public class CommentService {
         return true;
     }
 
-    public Boolean deleteByUser(User userId) {
-        Comment[] comments = findByUserId(userId);
-        repo.deleteAll(List.of(comments));
-        return true;
-    }
+//    public Boolean deleteByUser(User userId) {
+//        Comment[] comments = findByUserId(userId);
+//        repo.deleteAll(List.of(comments));
+//        return true;
+//    }
 
-    public Boolean deleteByVideo(Video videoId) {
+    public Boolean deleteByVideo(Integer videoId) {
         Comment[] comments = findByVideoId(videoId);
         repo.deleteAll(List.of(comments));
         return true;
