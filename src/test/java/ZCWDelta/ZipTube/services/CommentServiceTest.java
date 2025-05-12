@@ -23,7 +23,7 @@ public class CommentServiceTest {
 
     @Test
     public void testCreateComment() {
-        Comment comment = new Comment("String", null, null);
+        Comment comment = new Comment("String", 2, 3);
         Comment actual = service.create(comment);
 
         Assertions.assertNotNull(actual);
@@ -32,8 +32,8 @@ public class CommentServiceTest {
 
     @Test
     public void testShowAll() {
-        Comment comment = new Comment("String", null, null);
-        Comment comment2 = new Comment("String", null, null);
+        Comment comment = new Comment("String", 2, 3);
+        Comment comment2 = new Comment("String", 2, 3);
         service.create(comment);
         service.create(comment2);
         Comment[] comments = service.getAllComments();
@@ -44,7 +44,7 @@ public class CommentServiceTest {
 
     @Test
     public void testShowById() {
-        Comment comment = new Comment("String", null, null);
+        Comment comment = new Comment("String", 2, 3);
         service.create(comment);
 
         Assertions.assertNotNull(service.show(comment.getId()));
@@ -63,7 +63,7 @@ public class CommentServiceTest {
     @Test
     public void testFindByVideo() {
         Video video = new Video();
-        service.create(new Comment("String", null, video));
+        service.create(new Comment("String", 2, video.getVideoId()));
         Comment[] comments = service.findByVideoId(video);
 
         Assertions.assertNotNull(comments);
@@ -72,7 +72,7 @@ public class CommentServiceTest {
 
     @Test
     public void testDeleteById() {
-        Comment comment = new Comment("String", null, null);
+        Comment comment = new Comment("String", 2, 3);
         service.create(comment);
         Assertions.assertFalse(service.getAllComments().length == 0);
 
@@ -84,8 +84,8 @@ public class CommentServiceTest {
     public void testDeleteByUser() {
         User user1 = new User();
         User user2 = new User();
-        service.create(new Comment("String", user1, null));
-        service.create(new Comment("String", user2, null));
+        service.create(new Comment("String", user1, 3));
+        service.create(new Comment("String", user2, 3));
         Assertions.assertEquals(2, service.getAllComments().length);
         service.deleteByUser(user1);
         Assertions.assertEquals(1, service.getAllComments().length);
@@ -95,8 +95,8 @@ public class CommentServiceTest {
     public void testDeleteByVideo() {
         Video video1 = new Video();
         Video video2 = new Video();
-        service.create(new Comment("String", null, video1));
-        service.create(new Comment("String", null, video2));
+        service.create(new Comment("String", 2, video1.getVideoId()));
+        service.create(new Comment("String", 2, video2.getVideoId()));
         Assertions.assertEquals(2, service.getAllComments().length);
         service.deleteByVideo(video1);
         Assertions.assertEquals(1, service.getAllComments().length);

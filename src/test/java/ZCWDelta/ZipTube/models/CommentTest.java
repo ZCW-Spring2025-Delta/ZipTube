@@ -45,7 +45,7 @@ public class CommentTest {
     public void testGetSetUserId() {
         Assertions.assertNull(comment.getUserId());
         User newUser = new User();
-        comment.setUserId(newUser);
+        comment.setUserId(newUser.getId());
         Assertions.assertEquals(newUser, comment.getUserId());
     }
 
@@ -53,7 +53,7 @@ public class CommentTest {
     public void testGetSetVideoId() {
         Assertions.assertNull(comment.getVideoId());
         Video newVideo = new Video();
-        comment.setVideoId(newVideo);
+        comment.setVideoId(newVideo.getVideoId());
         Assertions.assertEquals(newVideo, comment.getVideoId());
     }
 
