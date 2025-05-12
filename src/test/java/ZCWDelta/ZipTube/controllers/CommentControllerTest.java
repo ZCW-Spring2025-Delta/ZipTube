@@ -3,6 +3,7 @@ package ZCWDelta.ZipTube.controllers;
 import ZCWDelta.ZipTube.models.Comment;
 import ZCWDelta.ZipTube.models.User;
 import ZCWDelta.ZipTube.models.Video;
+import ZCWDelta.ZipTube.services.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,14 @@ public class CommentControllerTest {
     @Autowired
     private CommentController controller;
 
+    @Autowired
+    private UserService userService;
+
     @Test //postmapping
     public void testCreateComment() throws Exception {
-        Comment comment = new Comment(null, "String", null, null);
+        User user = new User();
+        user.setUsername("string");
+        Comment comment = new Comment(null, "String", user, null);
         ResponseEntity<Comment> response = controller.writeComment(comment);
 
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -41,7 +47,7 @@ public class CommentControllerTest {
 
     @Test //getmapping by comment id
     public void testShowById() {
-        Comment actual = new Comment("String", null, null);
+        Comment actual = new Comment("String", new User(), null);
         Comment posted = testTemplate.postForObject("/comments", actual, Comment.class);
         ResponseEntity<Comment> response = controller.getComment(posted.getId());
 
@@ -74,7 +80,7 @@ public class CommentControllerTest {
 
     @Test //deletemapping by id
     public void testDeleteById() {
-        Comment comment = new Comment("String", null, null);
+        Comment comment = new Comment("String", new User(), null);
         Comment posted = testTemplate.postForObject("/comments", comment, Comment.class);
 
         ResponseEntity<Boolean> response = controller.deleteComment(posted.getId());
