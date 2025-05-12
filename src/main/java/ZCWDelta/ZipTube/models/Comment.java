@@ -1,10 +1,16 @@
 package ZCWDelta.ZipTube.models;
 
 import jakarta.persistence.*;
+import ZCWDelta.ZipTube.services.UserService;
+import ZCWDelta.ZipTube.services.VideoService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Table(name = "comments")
 public class Comment {
+
+//    private VideoService vidService;
+//    private UserService userService;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,16 +40,23 @@ public class Comment {
     public Comment(String text, User userId, Video videoId) {
         this.text = text;
         this.userId = userId;
-        this.username = userId.getUsername();
+        this.username = userId.getUsername().toString();
         this.videoId = videoId;
     }
+
+//    public Comment(String text, Integer userId, Integer videoId) {
+//        this.text = text;
+//        this.userId = userService.findById(userId).get();
+//        this.username = this.userId.getUsername();
+//        this.videoId = vidService.getVideoById(videoId).get();
+//    }
 
     //For testing purposes
     public Comment(Integer id, String text, User userId, Video videoId) {
         this.id = id;
         this.text = text;
         this.userId = userId;
-        this.username = userId.getUsername();
+        this.username = userId.getUsername().toString();
         this.videoId = videoId;
     }
 
