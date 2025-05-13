@@ -39,7 +39,7 @@ public class Comment {
 
     public Comment(String text, Integer userId, String username, Integer videoId) {
         this.text = text;
-        //this.userId = userId;
+        this.userId = userId;
         this.username = username;
         this.videoId = videoId;
     }

@@ -71,7 +71,7 @@ public class CommentControllerTest {
     public void testShowByVideo() {
         Video video = new Video(1, "", "", false, false, "", "", null, 1);
         Video postedVideo = testTemplate.postForObject("/video", video, Video.class);
-        Comment actual = new Comment("string", 2, postedVideo.getVideoId());
+        Comment actual = new Comment("string", 2, "", postedVideo.getVideoId());
         ResponseEntity<Comment[]> response = controller.getByVideo(video);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
