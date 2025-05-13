@@ -13,6 +13,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -26,14 +27,14 @@ public class VideoController {
     // Simulating authentication
     private String getCurrentUsername() {
         // Replace this with actual logic from Spring Security
-//        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-//        if (attr != null) {
-//            HttpServletRequest request = attr.getRequest();
-//            String username = request.getHeader("X-Username");
-//            return (username != null) ? username : "anonymous";
-//        }
-//        return "anonymous";
-        return "ike123";
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if (attr != null) {
+            HttpServletRequest request = attr.getRequest();
+            String username = request.getHeader("X-Username");
+            return (username != null) ? username : "anonymous";
+        }
+        return "anonymous";
+//return "ike123";
     }
 
     public VideoController(VideoService videoService){
@@ -67,8 +68,9 @@ public class VideoController {
     }
 
     @PostMapping("/{videoId}/toggle-favorite")
-    public ResponseEntity<Video> toggleFavorite(@PathVariable Integer videoId) {
-        return ResponseEntity.ok(videoService.toggleFavorite(videoId));
+    public ResponseEntity<Video> toggleFavorite(@PathVariable Integer videoId, @RequestBody Map<String, Integer> payload) {
+        Integer userId = payload.get("userId");
+        return ResponseEntity.ok(videoService.toggleFavorite(videoId,userId));
     }
 
     @PostMapping
