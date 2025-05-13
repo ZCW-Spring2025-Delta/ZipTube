@@ -27,7 +27,7 @@ public class Video {
     private String year;
 
     @Column(name = "URL")
-    private String URL;
+    private String url;
 
     @Column(name = "comment_id")
     private Integer commentId;
@@ -43,14 +43,14 @@ public class Video {
     }
 
 
-    public Video(Integer videoId, String videoName, String query, Boolean favorite, Boolean uploaded, String year, String URL, User user, Integer commentId) {
+    public Video(Integer videoId, String videoName, String query, Boolean favorite, Boolean uploaded, String year, String url, User user, Integer commentId) {
         this.videoId = videoId;
         this.videoName = videoName;
         this.query = query;
         this.favorite = favorite;
         this.uploaded = uploaded;
         this.year = year;
-        this.URL = URL;
+        this.url = url;
         this.uploader = user;
         this.commentId = commentId;
     }
@@ -98,11 +98,11 @@ public class Video {
     }
 
     public String getURL() {
-        return URL;
+        return url;
     }
 
     public void setURL(String URL) {
-        this.URL = URL;
+        this.url = url;
     }
 
     public User getUser() {
