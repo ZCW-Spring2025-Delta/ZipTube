@@ -1,6 +1,7 @@
 package ZCWDelta.ZipTube.controllers;
 
 
+import ZCWDelta.ZipTube.VideoDTO;
 import ZCWDelta.ZipTube.models.Video;
 import ZCWDelta.ZipTube.services.VideoService;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 @WebMvcTest(VideoController.class)
 public class VideoControllerTest {
@@ -35,8 +37,8 @@ public class VideoControllerTest {
         Integer givenId = 1;
         Video video = new Video(givenId, "Spring Boot", null, true, true, "2023", "https://youtu.be/x", null, null);
         BDDMockito
-                .given(service.showById(givenId))
-                .willReturn(video);
+                .given(service.getVideoById(givenId))
+                .willReturn(Optional.of(video));
 
 //        String expectedContent = "{\"id\":null,\"videoName\":\"movie-name\",\"query\":null,\"favorite\":null,\"year\":null,\"url\":null,\"specialty\":null}";
         this.mvc.perform(get("/video/" + givenId))
@@ -47,7 +49,7 @@ public class VideoControllerTest {
     @Test
     void testGetVideoById_found() throws Exception {
         Video video = new Video(1, "Spring Boot", null, true, true, "2023", "url", null, null);
-        BDDMockito.given(service.showById(1)).willReturn(video);
+        BDDMockito.given(service.getVideoById(1)).willReturn(Optional.of(video));
 
         mvc.perform(get("/video/1"))
                 .andExpect(status().isOk())
@@ -55,7 +57,7 @@ public class VideoControllerTest {
     }
     @Test
     void testGetVideoById_notFound() throws Exception {
-        BDDMockito.given(service.showById(99)).willReturn(null);
+        BDDMockito.given(service.getVideoById(99)).willReturn(null);
 
         mvc.perform(get("/video/99"))
                 .andExpect(status().isNotFound());
@@ -66,7 +68,7 @@ public class VideoControllerTest {
         Video input = new Video(null, "Create Test", null, false, false, "2024", "url", null, null);
         Video saved = new Video(5, "Create Test", null, false,false, "2024", "url", null, null);
 
-        BDDMockito.given(service.create(any(Video.class))).willReturn(saved);
+        BDDMockito.given(service.createVideo(any(VideoDTO.class),"name" )).willReturn(saved);
 
         String requestBody = """
             {
