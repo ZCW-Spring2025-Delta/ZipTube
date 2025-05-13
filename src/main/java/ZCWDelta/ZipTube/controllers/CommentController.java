@@ -96,11 +96,11 @@ public class CommentController {
         return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
     }
 
-    @DeleteMapping("/video/{videoId}")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Boolean> deleteByVideo(@PathVariable("videoId") Integer videoId) {
-        return new ResponseEntity<>(service.deleteByVideo(videoId), HttpStatus.OK);
-    }
+//    @DeleteMapping("/video/{videoId}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public ResponseEntity<Boolean> deleteByVideo(@PathVariable("videoId") Integer videoId) {
+//        return new ResponseEntity<>(service.deleteByVideo(videoId), HttpStatus.OK);
+//    }
 
 //    @DeleteMapping("/user/{userId}")
 //    @ResponseStatus(HttpStatus.OK)

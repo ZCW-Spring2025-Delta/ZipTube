@@ -20,10 +20,10 @@ public class Comment {
     @Column(name = "text")
     private String text;
 
-    //@Column(name = "UserId")
+    @Column(name = "UserId")
 //    @ManyToOne(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "user_id", referencedColumnName = "id")
-//    private Integer userId;
+    private Integer userId;
 
     @Column
     private String username;
@@ -39,7 +39,7 @@ public class Comment {
 
     public Comment(String text, Integer userId, String username, Integer videoId) {
         this.text = text;
-        //this.userId = userId;
+        this.userId = userId;
         this.username = username;
         this.videoId = videoId;
     }
