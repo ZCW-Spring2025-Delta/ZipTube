@@ -18,7 +18,7 @@ public class VideoDTO {
 
     private String year;
 
-    private String URL;
+    private String url;
 
     private Integer commentId;
 
@@ -44,7 +44,7 @@ public class VideoDTO {
     }
 
     public String getURL() {
-        return URL;
+        return url;
     }
 
     public Integer getCommentId() {
