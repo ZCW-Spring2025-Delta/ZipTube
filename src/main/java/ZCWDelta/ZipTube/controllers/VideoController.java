@@ -26,14 +26,14 @@ public class VideoController {
     // Simulating authentication
     private String getCurrentUsername() {
         // Replace this with actual logic from Spring Security
-//        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-//        if (attr != null) {
-//            HttpServletRequest request = attr.getRequest();
-//            String username = request.getHeader("X-Username");
-//            return (username != null) ? username : "anonymous";
-//        }
-//        return "anonymous";
-        return "ike123";
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if (attr != null) {
+            HttpServletRequest request = attr.getRequest();
+            String username = request.getHeader("X-Username");
+            return (username != null) ? username : "anonymous";
+        }
+        return "anonymous";
+//        return "lemon";
     }
 
     public VideoController(VideoService videoService){
