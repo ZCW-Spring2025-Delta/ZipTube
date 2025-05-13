@@ -34,7 +34,7 @@ public class VideoController {
             return (username != null) ? username : "anonymous";
         }
         return "anonymous";
-//return "ike123";
+//        return "lemon";
     }
 
     public VideoController(VideoService videoService){
