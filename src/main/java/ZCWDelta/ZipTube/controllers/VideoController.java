@@ -13,6 +13,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -67,8 +68,9 @@ public class VideoController {
     }
 
     @PostMapping("/{videoId}/toggle-favorite")
-    public ResponseEntity<Video> toggleFavorite(@PathVariable Integer videoId) {
-        return ResponseEntity.ok(videoService.toggleFavorite(videoId));
+    public ResponseEntity<Video> toggleFavorite(@PathVariable Integer videoId, @RequestBody Map<String, Integer> payload) {
+        Integer userId = payload.get("userId");
+        return ResponseEntity.ok(videoService.toggleFavorite(videoId,userId));
     }
 
     @PostMapping
