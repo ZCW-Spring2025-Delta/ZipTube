@@ -41,10 +41,10 @@ Fast, intuitive interface for effortless browsing and interaction
 
 **Tech Stack**
 
-Java Spring Boot 
-MySQL 
-JavaScript, React, CSS & HTML 
-Hosting Cloud: Zip Code Rocks 
+Back-end: Java, Spring Boot <br>
+Data-Management: MySQL, H2 Database, and AWS S3 <br>
+Front-End: HTML, CSS, Javascript, and Bootstrap <br>
+Hosting Cloud: Zip Code Rocks <br>
 
  
 
