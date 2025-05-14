@@ -1,4 +1,9 @@
+
+
 ## ZipTube
+
+# Members
+Isaac Mills-Owoo - https://www.linkedin.com/in/isaac-mills-owoo/
 
 ZipTube – Share, Discover & Connect Through Video 
 
@@ -32,11 +37,6 @@ Fast, intuitive interface for effortless browsing and interaction
 - Creators looking for a platform to showcase their work   
 - Viewers wanting fresh, personalized video content   
 - Anyone who values community and interaction through media   
-
-**Get Involved**
-
-Be part of our beta launch and help shape the future of video sharing. 
-🌐 Visit: www.ZipTube.com 
 
 **Tech Stack**
 
